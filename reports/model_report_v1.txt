@@ -1,0 +1,31 @@
+==============================================
+         VARUNA AI MODEL REPORT
+==============================================
+Model:                random_forest
+Version:              v1
+Task:                 Next-day rainfall category (0 normal / 1 heavy / 2 extreme)
+Training data:        69888 records, 2001-01-30 → 2017-10-28
+Test period:          2021-05-31 → 2024-12-30 (held out, chronological)
+----------------------------------------------
+Accuracy:             98.8%   (inflated by class imbalance — see below)
+Precision (macro):    62.0%
+Recall (macro):       65.2%
+F1 Score (macro):     63.4%
+----------------------------------------------
+Per-class performance (test set):
+  Normal Rainfall    precision  99.5%  recall  99.3%  (n=10403)
+  Heavy Rainfall     precision  24.5%  recall  31.2%  (n=77)
+----------------------------------------------
+Confusion matrix (rows = actual, cols = predicted):
+          Normal   Heavy R
+  Normal     10329       74
+  Heavy R       53       24
+----------------------------------------------
+Validation-set comparison (selection metric: macro-F1):
+  random_forest          f1_macro 0.642  recall_macro 0.641  accuracy 0.988 <- selected
+  xgboost                f1_macro 0.630  recall_macro 0.645  accuracy 0.986
+  gradient_boosting      f1_macro 0.551  recall_macro 0.874  accuracy 0.919
+  logistic_regression    f1_macro 0.342  recall_macro 0.577  accuracy 0.868
+----------------------------------------------
+Performance:          GOOD
+==============================================

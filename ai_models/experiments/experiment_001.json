@@ -1,0 +1,221 @@
+{
+  "id": "experiment_001",
+  "date": "2026-08-07T13:38:51.124335+00:00",
+  "model_version": "v1",
+  "task": "next-day rainfall category (0/1/2)",
+  "features": [
+    "temperature_c",
+    "humidity_pct",
+    "pressure_hpa",
+    "wind_speed_ms",
+    "wind_direction_deg",
+    "cloud_cover_pct",
+    "latitude",
+    "longitude",
+    "rain_sum_1d",
+    "rain_sum_3d",
+    "rain_sum_7d",
+    "rain_sum_30d",
+    "rain_trend_3d",
+    "season_sin",
+    "season_cos"
+  ],
+  "dataset": {
+    "source": "NASA POWER daily point data (real, via Phase 2 pipeline)",
+    "dataset_path": "/Users/sangeetasinha/Desktop/isrosih/VARUNA-AI/data/processed/datasets/training_dataset.parquet",
+    "records": 69888,
+    "train_range": [
+      "2001-01-30",
+      "2017-10-28"
+    ],
+    "test_range": [
+      "2021-05-31",
+      "2024-12-30"
+    ],
+    "class_counts": {
+      "0": 69311,
+      "1": 574,
+      "2": 3
+    }
+  },
+  "candidates": {
+    "logistic_regression": {
+      "params": {
+        "memory": null,
+        "transform_input": null,
+        "verbose": false
+      },
+      "validation_metrics": {
+        "accuracy": 0.8679389312977099,
+        "precision_macro": 0.3503732870086787,
+        "recall_macro": 0.5766856781365884,
+        "f1_macro": 0.3424957664431349
+      }
+    },
+    "random_forest": {
+      "params": {
+        "bootstrap": true,
+        "ccp_alpha": 0.0,
+        "class_weight": "balanced",
+        "criterion": "gini",
+        "max_depth": null,
+        "max_features": "sqrt",
+        "max_leaf_nodes": null,
+        "max_samples": null,
+        "min_impurity_decrease": 0.0,
+        "min_samples_leaf": 2,
+        "min_samples_split": 2,
+        "min_weight_fraction_leaf": 0.0,
+        "monotonic_cst": null,
+        "n_estimators": 300,
+        "n_jobs": -1,
+        "oob_score": false,
+        "random_state": 42,
+        "verbose": 0,
+        "warm_start": false
+      },
+      "validation_metrics": {
+        "accuracy": 0.9882633587786259,
+        "precision_macro": 0.6423663473112843,
+        "recall_macro": 0.6407434933548333,
+        "f1_macro": 0.6415500906385744
+      }
+    },
+    "gradient_boosting": {
+      "params": {
+        "ccp_alpha": 0.0,
+        "criterion": "deprecated",
+        "init": null,
+        "learning_rate": 0.1,
+        "loss": "log_loss",
+        "max_depth": 3,
+        "max_features": null,
+        "max_leaf_nodes": null,
+        "min_impurity_decrease": 0.0,
+        "min_samples_leaf": 1,
+        "min_samples_split": 2,
+        "min_weight_fraction_leaf": 0.0,
+        "n_estimators": 150,
+        "n_iter_no_change": null,
+        "random_state": 42,
+        "subsample": 1.0,
+        "tol": 0.0001,
+        "validation_fraction": 0.1,
+        "verbose": 0,
+        "warm_start": false
+      },
+      "validation_metrics": {
+        "accuracy": 0.919179389312977,
+        "precision_macro": 0.5390398008295074,
+        "recall_macro": 0.8737661622378458,
+        "f1_macro": 0.5514460127627692
+      }
+    },
+    "xgboost": {
+      "params": {
+        "objective": "multi:softprob",
+        "base_score": null,
+        "booster": null,
+        "callbacks": null,
+        "colsample_bylevel": null,
+        "colsample_bynode": null,
+        "colsample_bytree": null,
+        "device": null,
+        "early_stopping_rounds": null,
+        "enable_categorical": true,
+        "eval_metric": "mlogloss",
+        "feature_types": null,
+        "feature_weights": null,
+        "gamma": null,
+        "grow_policy": null,
+        "importance_type": null,
+        "interaction_constraints": null,
+        "learning_rate": 0.1,
+        "max_bin": null,
+        "max_cat_threshold": null,
+        "max_cat_to_onehot": null,
+        "max_delta_step": null,
+        "max_depth": 6,
+        "max_leaves": null,
+        "min_child_weight": null,
+        "missing": NaN,
+        "monotone_constraints": null,
+        "multi_strategy": null,
+        "n_estimators": 300,
+        "n_jobs": -1,
+        "num_parallel_tree": null,
+        "random_state": 42,
+        "reg_alpha": null,
+        "reg_lambda": null,
+        "sampling_method": null,
+        "scale_pos_weight": null,
+        "subsample": null,
+        "tree_method": null,
+        "validate_parameters": null,
+        "verbosity": null
+      },
+      "validation_metrics": {
+        "accuracy": 0.9863549618320611,
+        "precision_macro": 0.6174297610375512,
+        "recall_macro": 0.6454803244004862,
+        "f1_macro": 0.6298900393289991
+      }
+    }
+  },
+  "selected_model": "random_forest",
+  "test_metrics": {
+    "accuracy": 0.9878816793893129,
+    "precision_macro": 0.6198964848894672,
+    "recall_macro": 0.6522874894979096,
+    "f1_macro": 0.6340877693391526,
+    "f1_weighted": 0.9886026567897063,
+    "per_class": {
+      "0": {
+        "precision": 0.994895010595261,
+        "recall": 0.9928866673075074,
+        "support": 10403
+      },
+      "1": {
+        "precision": 0.24489795918367346,
+        "recall": 0.3116883116883117,
+        "support": 77
+      }
+    },
+    "confusion_matrix": [
+      [
+        10329,
+        74
+      ],
+      [
+        53,
+        24
+      ]
+    ],
+    "labels": [
+      0,
+      1
+    ]
+  },
+  "feature_importance": {
+    "longitude": 0.18876739345097177,
+    "pressure_hpa": 0.17943021856008573,
+    "rain_sum_1d": 0.14556241422375255,
+    "rain_sum_30d": 0.11297618093371826,
+    "rain_sum_3d": 0.10903452186438696,
+    "humidity_pct": 0.0636423467717368,
+    "rain_sum_7d": 0.06357716295162666,
+    "wind_speed_ms": 0.042390173023365015,
+    "cloud_cover_pct": 0.04017290952153239,
+    "season_cos": 0.01987580888957582,
+    "wind_direction_deg": 0.01474018378887946,
+    "temperature_c": 0.011472127812055598,
+    "latitude": 0.008358558208312966,
+    "rain_trend_3d": 0.0,
+    "season_sin": 0.0
+  },
+  "artifacts": {
+    "bundle": "/Users/sangeetasinha/Desktop/isrosih/VARUNA-AI/ai_models/saved_models/rainfall_model_v1.pkl",
+    "report": "/Users/sangeetasinha/Desktop/isrosih/VARUNA-AI/reports/model_report_v1.txt",
+    "importance_plot": "/Users/sangeetasinha/Desktop/isrosih/VARUNA-AI/reports/feature_importance_v1.png"
+  }
+}
