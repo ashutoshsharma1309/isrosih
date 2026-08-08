@@ -1,0 +1,43 @@
+# --- Secrets & environment ---
+.env
+.env.local
+*.env
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+*.egg-info/
+
+# --- Node / frontend ---
+node_modules/
+frontend/dist/
+
+# --- Data & model artifacts (large binaries stay out of git) ---
+# Ignore dataset contents but keep the directory skeleton (.gitkeep).
+data/raw/**
+data/processed/**
+data/external/*
+data/labels/*
+data/metadata/*
+!data/raw/
+!data/raw/*/
+!data/processed/
+!data/processed/*/
+!**/.gitkeep
+ai_models/artifacts/
+# Trained model binaries (28MB+); distribute via releases/DVC.
+# Experiment records (ai_models/experiments/) and reports/ stay tracked.
+ai_models/saved_models/*
+!ai_models/saved_models/.gitkeep
+
+# --- Notebooks ---
+notebooks/.ipynb_checkpoints/
+
+# --- OS / editor ---
+.DS_Store
+.idea/
+.vscode/

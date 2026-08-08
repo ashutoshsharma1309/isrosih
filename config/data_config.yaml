@@ -1,0 +1,74 @@
+# =====================================================================
+# VARUNA AI — data pipeline configuration.
+# Single source of truth for paths, regions, and processing parameters.
+# Code must read these values via data_pipeline.config — never hardcode.
+# =====================================================================
+
+# Monitored regions. Bounding boxes are [lon_min, lat_min, lon_max, lat_max]
+# in WGS84 — used to crop satellite scenes and filter station records.
+regions:
+  - name: Kerala
+    bbox: [74.8, 8.2, 77.5, 12.8]
+  - name: Mumbai
+    bbox: [72.7, 18.8, 73.2, 19.3]
+  - name: Chennai
+    bbox: [79.9, 12.8, 80.4, 13.3]
+  - name: Assam
+    bbox: [89.6, 24.1, 96.0, 28.2]
+
+# All paths are relative to the repository root.
+paths:
+  raw_satellite: data/raw/satellite
+  raw_rainfall: data/raw/rainfall
+  raw_weather: data/raw/weather
+  processed_images: data/processed/images
+  processed_features: data/processed/features
+  processed_datasets: data/processed/datasets
+  labels: data/labels
+  metadata: data/metadata
+
+satellite:
+  # Target size (pixels, square) for model-ready images — 224 matches
+  # standard CNN / Vision Transformer input resolutions.
+  image_size: 224
+  # minmax → scale pixel values to [0, 1]. Alternative: zscore.
+  normalization: minmax
+  # File types the ingestion and preprocessing steps accept.
+  allowed_extensions: [.png, .jpg, .jpeg, .tif, .tiff, .h5, .nc]
+
+weather:
+  # Features every processed weather record must carry (ERA5 naming
+  # normalised to these canonical column names).
+  features:
+    - temperature_c
+    - humidity_pct
+    - pressure_hpa
+    - wind_speed_ms
+    - wind_direction_deg
+    - cloud_cover_pct
+    - precipitation_mm
+  # Maximum consecutive gap (in records) filled by time interpolation;
+  # longer gaps stay NaN and are surfaced by the validator.
+  max_interpolation_gap: 3
+  # |z-score| above which a value is flagged as an outlier.
+  outlier_zscore: 4.0
+
+rainfall:
+  # 24-hour accumulation thresholds (mm), following IMD categories.
+  # Categories: 0 = normal, 1 = heavy (>= heavy_mm), 2 = extreme (>= extreme_mm).
+  heavy_mm: 64.5
+  extreme_mm: 204.4
+  accumulation_hours: 24
+
+merger:
+  # A satellite image is linked to a record if captured within this window.
+  max_image_time_gap_hours: 3
+  # Coordinates are rounded to this many decimal places when joining
+  # weather and rainfall records (2 ≈ 1.1 km).
+  coordinate_precision: 2
+
+validation:
+  # Dataset is NOT READY if overall missing-value share exceeds this.
+  max_missing_pct: 10.0
+  # Minimum records for a dataset to be considered trainable at all.
+  min_records: 100
