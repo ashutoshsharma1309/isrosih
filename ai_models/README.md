@@ -9,10 +9,16 @@ application. The backend consumes models only through the interfaces in
 | Path | Purpose | Phase |
 |---|---|---|
 | `base.py` | Abstract `RainfallModel` interface + `ModelOutput` contract | 1 (done) |
-| `tabular/` | Baseline classifier on meteorological features (gradient boosting / random forest, scikit-learn) | 3 |
-| `vision/` | CNN on INSAT/NASA satellite imagery (PyTorch) — cloud density, formation and movement patterns | 4 |
-| `hybrid/` | Fusion model combining tabular + vision signals into the final risk probability | 5 |
-| `artifacts/` | Trained model weights (git-ignored; tracked via releases or DVC) | 3+ |
+| `baseline/` | Tabular classifier on meteorological features (scikit-learn); forecasts the **next day** per point | 3 (done) |
+| `satellite_model/` | CNN on NASA GIBS MODIS imagery (PyTorch); classifies the **same day** per region | 4 (done) |
+| `fusion_model/` | Hybrid engine combining both branches into the final risk probability, confidence and historical analogues | 5 (done) |
+| `saved_models/` | Trained artifacts (git-ignored; distribute via releases or DVC) | 3+ |
+| `experiments/` | One JSON record per training run — metrics, selection reason, artifacts | 3+ |
+| `tabular/`, `vision/`, `hybrid/` | Empty namespace stubs kept from the Phase 1 skeleton | — |
+
+Each model package follows the same shape: `config.py`, data/dataset
+preparation, `model.py` or `fusion.py`, `train.py`, `evaluate.py`,
+`predict.py`.
 
 ## Rules
 
@@ -23,3 +29,12 @@ application. The backend consumes models only through the interfaces in
 - Models must populate `ModelOutput.explanation_context` so the
   `explainability/` package can compute SHAP values and Grad-CAM heatmaps
   without reaching into model internals.
+- A feature derived from another model's output must be generated
+  **out-of-fold**. The Phase 3 artifact had memorised most of the Phase 5
+  period (AUC 1.000 in-sample vs 0.875 out-of-sample), which made every
+  fusion approach score a meaningless validation macro-F1 of 1.000. See
+  `fusion_model/dataset.py` and docs/hybrid_ai_architecture.md.
+- Reports state what the numbers do *not* show. Every model report ends
+  with a CAVEATS block regenerated from measured values — unmeasurable
+  classes, underpowered splits, and baselines the model failed to beat
+  are named explicitly.

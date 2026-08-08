@@ -123,7 +123,20 @@ npm run dev                     # http://localhost:5173
 
 ## Project phases
 
-Phase 1 (this commit) delivers the architecture and foundation. The full
-ten-phase plan — data pipeline → baseline model → vision model → hybrid →
-explainability → integration → deployment — is in
+Phases 1–5 are complete: architecture, data pipeline, baseline tabular
+model, satellite vision model, and the hybrid fusion engine. Phase 6
+(explainability) is next. The full ten-phase plan is in
 [docs/development_roadmap.md](docs/development_roadmap.md).
+
+| Phase | Deliverable | Trained artifact |
+|---|---|---|
+| 3 | Tabular model — next-day category from weather | `rainfall_model_v1.pkl` (test macro-F1 0.634) |
+| 4 | Satellite CNN — same-day category from a MODIS scene | `satellite_model_v1.pt` (test macro-F1 0.860) |
+| 5 | Hybrid fusion — next-day risk from both branches | `varuna_fusion_model_v1.pkl` (see report) |
+
+Model artifacts are git-ignored; regenerate them with
+`python -m ai_models.<package>.train`, or distribute via releases/DVC.
+Every run writes a report to [reports/](reports/) whose CAVEATS block
+names what the numbers do not show — currently that Extreme rainfall is
+unmeasurable on this data, and that fusion has not yet beaten the weather
+branch alone on held-out days.

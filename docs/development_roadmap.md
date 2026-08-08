@@ -6,8 +6,8 @@
 | 2 | Data acquisition & preprocessing pipeline | ✅ Done |
 | 3 | Baseline tabular rainfall model | ✅ Done |
 | 4 | Satellite image intelligence model | ✅ Done |
-| 5 | Hybrid prediction system | Next |
-| 6 | Explainable AI layer | Pending |
+| 5 | Hybrid prediction system | ✅ Done |
+| 6 | Explainable AI layer | Next |
 | 7 | Backend API integration | Pending |
 | 8 | Frontend dashboard build-out | Pending |
 | 9 | Integration & testing | Pending |
@@ -51,18 +51,63 @@ needs IMD gridded / GPM IMERG resolution.
 Implemented in `ai_models/satellite_model/` (see
 docs/satellite_model_architecture.md, docs/satellite_data_processing.md):
 1,144 real MODIS scenes (NASA GIBS True Color + Band31 IR, 2001–2024)
-labeled with observed region-day rainfall outcomes; custom CNN vs
-ResNet-18 transfer vs ViT-B/16 linear probe compared with chronological
-splits, class-weighted loss, and augmentation; Grad-CAM target layer
-recorded in the checkpoint for Phase 6; interpretable scene features
-(cloud density, cold-top fraction, growth rate, dispersion) exported for
-the Phase 5 fusion. INSAT 30-min sequences remain the documented MOSDAC
-upgrade path.
+labeled with observed region-day rainfall outcomes; chronological splits,
+class-weighted loss and augmentation; Grad-CAM target layer recorded in
+the checkpoint for Phase 6; interpretable scene features (cloud density,
+cold-top fraction, growth rate, dispersion) exported for the Phase 5
+fusion. INSAT 30-min sequences remain the documented MOSDAC upgrade path.
 
-## Phase 5 — Hybrid system
+Trained artifacts: `ai_models/saved_models/satellite_model_v1.pt`
+(custom_cnn, test macro-F1 0.860), report, curves, confusion matrix,
+sample-prediction grid, and `satellite_features.parquet`.
 
-- Fusion of tabular + vision outputs; probability calibration;
-  `PredictionService` loads the artifact and the 501s disappear.
+Two gaps recorded rather than papered over:
+
+- **The three-way architecture comparison did not run.** ResNet-18 and
+  ViT-B/16 are implemented but were never evaluated — first because
+  `torchvision` could not fetch ImageNet weights (SSL CA bundle), then
+  because the 8 GB development machine could not train them. `custom_cnn`
+  was selected as the only candidate that ran. See
+  docs/satellite_model_architecture.md for the one-command reproduction.
+- **Extreme is untrainable here.** Only 3 Extreme scenes exist and the
+  chronological split puts all 3 in train, so validation and test contain
+  none — the class that matters most for an extreme-rainfall warning
+  system cannot be scored. Same data gap as Phase 3.
+
+## Phase 5 — Hybrid system (complete)
+
+Implemented in `ai_models/fusion_model/` (see docs/hybrid_ai_architecture.md
+and docs/prediction_pipeline.md). Unified region-day dataset joining Phase 2
+weather with Phase 4 scene features; three fusion approaches compared
+(weighted late fusion, feature-level RF/XGBoost, two-encoder neural fusion)
+against both single-modality baselines on the same held-out period;
+confidence from prediction strength + branch agreement + historical
+similarity; `historical_match.py` for nearest past analogues; bundle,
+`model_info.json`, VARUNA AI HYBRID MODEL REPORT and 35 tests.
+
+Two findings changed the design and are worth carrying forward:
+
+- **The two models answer different questions.** Phase 3 forecasts T+1 per
+  point; Phase 4 classifies T per region. The fusion target is the T+1
+  region-day, so the satellite branch contributes current convective state,
+  not a same-day answer.
+- **The Phase 3 score leaked.** Scored with the shipped artifact, it had
+  AUC 1.000 in-sample versus 0.875 out-of-sample, and every fusion approach
+  reached a meaningless validation macro-F1 of 1.000. It is now generated
+  out-of-fold by walk-forward retraining. The satellite score was checked
+  the same way and shows no such memorisation.
+
+Honest outcome: **fusion has not yet beaten the weather branch alone** on
+held-out data — the validation weight sweep chose w=1.00, discarding the
+satellite branch. See `reports/hybrid_model_report_v1.txt`. The blocking
+constraints are the class imbalance (one Extreme region-day survives into
+the dataset, none in test) and a test period holding ~15 high-impact days,
+which is too small to separate the approaches.
+
+Carried forward to Phase 6+: probability calibration; a recall- or
+cost-weighted selection metric (the current macro-F1 winner trades away
+event recall, the wrong trade for early warning); `PredictionService`
+wiring so the 501s disappear (Phase 7).
 
 ## Phase 6 — Explainability
 

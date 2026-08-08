@@ -12,13 +12,43 @@ region-day's rainfall category (0 normal / 1 heavy / 2 extreme) plus a
 observed outcomes (see satellite_data_processing.md) — the model learns
 which cloud structures actually co-occur with high-impact rain.
 
-### Candidates compared
+### Candidates implemented
 
-| Name | Architecture | Trainable params | Rationale |
-|---|---|---|---|
-| `custom_cnn` | 4 conv blocks (32→64→128→256, BN+ReLU+MaxPool) → GAP → dropout → linear | ~1.1 M | From-scratch baseline; no pretraining assumptions |
-| `resnet18` | ImageNet-pretrained; layer4 + fc fine-tuned, rest frozen | ~8.4 M | Transfer learning — pretrained texture/edge features transfer well to cloud imagery |
-| `vit_b_16` | ImageNet-pretrained ViT-B/16, frozen backbone, linear head | ~2.3 K | The computationally honest ViT option (linear probe) per the "if feasible" spec clause |
+| Name | Architecture | Trainable params | Rationale | Status |
+|---|---|---|---|---|
+| `custom_cnn` | 4 conv blocks (32→64→128→256, BN+ReLU+MaxPool) → GAP → dropout → linear | ~1.1 M | From-scratch baseline; no pretraining assumptions | **trained & selected** |
+| `resnet18` | ImageNet-pretrained; layer4 + fc fine-tuned, rest frozen | ~8.4 M | Transfer learning — pretrained texture/edge features transfer well to cloud imagery | not evaluated |
+| `vit_b_16` | ImageNet-pretrained ViT-B/16, frozen backbone, linear head | ~2.3 K | The computationally honest ViT option (linear probe) per the "if feasible" spec clause | not evaluated |
+
+**The shipped v1 checkpoint is `custom_cnn`, selected as the only
+candidate that ran — not as the winner of a three-way comparison.** The
+report (`reports/satellite_model_report_v1.txt`) shows a single row in its
+comparison table for exactly this reason.
+
+Both pretrained candidates are implemented and reachable; they were not
+evaluated for environmental reasons, recorded here so the gap is not
+mistaken for a result:
+
+1. On the first run, `torchvision` could not download the ImageNet weights
+   — `SSL: CERTIFICATE_VERIFY_FAILED`, the usual missing-CA-bundle problem
+   on a framework Python install. `train.py` caught it and skipped both
+   candidates, leaving `custom_cnn` unopposed. Fix: point `SSL_CERT_FILE`
+   and `REQUESTS_CA_BUNDLE` at `certifi.where()`.
+2. With the weights cached, training them exhausted the 8 GB development
+   machine: epoch time for even the small CNN degraded from 45 s to 300 s
+   as the system swapped, and the pretrained backbones were not viable.
+   `batch_size_by_model` (32 / 16 / 8) was added to reduce activation
+   memory, which is necessary but not sufficient on this hardware.
+
+To complete the comparison on a machine with adequate memory:
+
+```bash
+export SSL_CERT_FILE=$(python -c 'import certifi;print(certifi.where())')
+backend/.venv/bin/python -m ai_models.satellite_model.train
+```
+
+Nothing else needs changing — all three candidates are in `CANDIDATES`,
+and selection is already by validation macro-F1.
 
 Training: AdamW, class-weighted cross-entropy (inverse frequency),
 augmentation on the train split only, chronological 70/15/15 split,
