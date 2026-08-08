@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Leaflet needs an explicit height on its container. */
+.map-container {
+  height: 100%;
+  min-height: 24rem;
+}
