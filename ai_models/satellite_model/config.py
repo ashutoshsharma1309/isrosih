@@ -44,6 +44,13 @@ class SatelliteConfig:
 
     # --- Training ---
     batch_size: int = 32
+    #: Per-candidate batch size. The pretrained backbones hold far more
+    #: activation memory than the small CNN, and the 8 GB development
+    #: machine swaps itself to a standstill at batch 32. Missing entries
+    #: fall back to `batch_size`.
+    batch_size_by_model: dict[str, int] = field(
+        default_factory=lambda: {"custom_cnn": 32, "resnet18": 16, "vit_b_16": 8}
+    )
     epochs_cnn: int = 12
     epochs_resnet: int = 8
     epochs_vit: int = 4

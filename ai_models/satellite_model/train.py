@@ -43,6 +43,26 @@ logger = logging.getLogger(__name__)
 CANDIDATES = ("custom_cnn", "resnet18", "vit_b_16")
 
 
+def build_loaders(
+    splits: "data_mod.SplitFrames", config: SatelliteConfig, batch_size: int
+) -> dict[str, DataLoader]:
+    """Loaders at a given batch size; augmentation on the train split only."""
+    return {
+        "train": DataLoader(
+            data_mod.SatelliteSceneDataset(splits.train, config, training=True),
+            batch_size=batch_size, shuffle=True, num_workers=0,
+        ),
+        "val": DataLoader(
+            data_mod.SatelliteSceneDataset(splits.val, config, training=False),
+            batch_size=batch_size, shuffle=False, num_workers=0,
+        ),
+        "test": DataLoader(
+            data_mod.SatelliteSceneDataset(splits.test, config, training=False),
+            batch_size=batch_size, shuffle=False, num_workers=0,
+        ),
+    }
+
+
 def train_one(
     name: str,
     config: SatelliteConfig,
@@ -131,33 +151,24 @@ def main(argv: list[str] | None = None) -> int:
     index = data_mod.load_labels(config)
     splits = data_mod.chronological_split(index, config)
     weights = data_mod.class_weights(splits.train, config.num_classes)
-    loaders = {
-        "train": DataLoader(
-            data_mod.SatelliteSceneDataset(splits.train, config, training=True),
-            batch_size=config.batch_size, shuffle=True, num_workers=0,
-        ),
-        "val": DataLoader(
-            data_mod.SatelliteSceneDataset(splits.val, config, training=False),
-            batch_size=config.batch_size, shuffle=False, num_workers=0,
-        ),
-        "test": DataLoader(
-            data_mod.SatelliteSceneDataset(splits.test, config, training=False),
-            batch_size=config.batch_size, shuffle=False, num_workers=0,
-        ),
-    }
 
     histories: dict[str, dict[str, list[float]]] = {}
     validation_metrics: dict[str, dict[str, Any]] = {}
     fitted: dict[str, tuple[nn.Module, str]] = {}
     for name in CANDIDATES:
+        batch_size = config.batch_size_by_model.get(name, config.batch_size)
+        candidate_loaders = build_loaders(splits, config, batch_size)
+        logger.info("Training %s at batch size %d", name, batch_size)
         try:
-            model, history, gradcam_layer = train_one(name, config, loaders, weights, device)
+            model, history, gradcam_layer = train_one(
+                name, config, candidate_loaders, weights, device
+            )
         except Exception as exc:
             logger.warning("Candidate %s failed to train (%s) — skipping", name, exc)
             continue
         histories[name] = history
         fitted[name] = (model, gradcam_layer)
-        labels, predictions, _ = collect_predictions(model, loaders["val"], device)
+        labels, predictions, _ = collect_predictions(model, candidate_loaders["val"], device)
         validation_metrics[name] = compute_metrics(labels, predictions, config.num_classes)
         logger.info("[%s] validation f1_macro=%.3f", name, validation_metrics[name]["f1_macro"])
 
@@ -167,7 +178,10 @@ def main(argv: list[str] | None = None) -> int:
 
     best_name = max(validation_metrics, key=lambda n: validation_metrics[n][config.selection_metric])
     best_model, gradcam_layer = fitted[best_name]
-    labels, predictions, probabilities = collect_predictions(best_model, loaders["test"], device)
+    best_loaders = build_loaders(
+        splits, config, config.batch_size_by_model.get(best_name, config.batch_size)
+    )
+    labels, predictions, probabilities = collect_predictions(best_model, best_loaders["test"], device)
     test_metrics = compute_metrics(labels, predictions, config.num_classes)
 
     dataset_info = {
