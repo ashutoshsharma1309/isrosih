@@ -1,0 +1,50 @@
+==============================================
+        VARUNA AI HYBRID MODEL REPORT
+==============================================
+Fusion model:         weighted_fusion_w1.00  (weighted)
+Version:              v1
+Task:                 Next-day (T+1) region rainfall category from
+                      day-T weather + day-T satellite scene
+Region-days:          922 (2004-09-06 → 2024-12-28)
+Regions:              Assam, Chennai, Kerala, Mumbai
+----------------------------------------------
+INDIVIDUAL MODEL PERFORMANCE (same held-out test period)
+----------------------------------------------
+  weather_only                    accuracy  79.6%   macro-F1  60.6%   macro-recall  65.1%
+  satellite_only                  accuracy  60.6%   macro-F1  53.0%   macro-recall  74.9%
+  FUSION (weighted_fusion_w1.00)  accuracy  79.6%   macro-F1  60.6%   macro-recall  65.1%
+----------------------------------------------
+IMPROVEMENT FROM FUSION (relative macro-F1)
+----------------------------------------------
+  vs weather_only     +0.0%
+  vs satellite_only   +14.4%
+----------------------------------------------
+PER-CLASS PERFORMANCE (held-out test period)
+----------------------------------------------
+  Normal   precision  92.7%  recall  83.6%  (n=122)
+  Heavy    precision  25.9%  recall  46.7%  (n=15)
+  Extreme  precision   0.0%  recall   0.0%  (n=0)  [no test samples — not measurable]
+----------------------------------------------
+APPROACH COMPARISON (validation macro-F1)
+----------------------------------------------
+  weighted_fusion_w1.00    f1_macro 0.729  recall_macro 0.793  accuracy 0.833 <- selected
+  weather_only (baseline)  f1_macro 0.729  recall_macro 0.793  accuracy 0.833
+  neural_fusion            f1_macro 0.704  recall_macro 0.762  accuracy 0.818
+  xgboost                  f1_macro 0.678  recall_macro 0.671  accuracy 0.848
+  random_forest            f1_macro 0.656  recall_macro 0.819  accuracy 0.727
+  satellite_only (baseline) f1_macro 0.586  recall_macro 0.788  accuracy 0.636
+----------------------------------------------
+Selection reason:     highest validation macro-F1 (0.729) among the three fusion approaches, chronological splits, accuracy not used (class imbalance)
+----------------------------------------------
+CAVEATS
+  - Extreme (>=204.4 mm) is not measurable: 1 such region-day(s) survive into the fusion dataset and none fall in the held-out test period. Every Extreme figure in this report is structural, not evidence the class works. Needs IMD gridded / GPM IMERG data (already flagged for Phases 3 and 4).
+  - The comparison is underpowered: selection rests on 132 validation region-days and the verdict on 137 test region-days holding only 15 high-impact day(s). Differences of a few macro-F1 points here are noise, not evidence one approach is better.
+  - The selected blend is degenerate: the validation sweep chose weight 1.00, which discards the satellite branch entirely, so this 'fusion' is the weather model unchanged. On this data no blend of the two branches beat the stronger branch alone.
+  - The selected fusion is conservative in the wrong direction: it recalls only 47% of Heavy days while raising overall accuracy. For an early-warning system a missed event costs more than a false alarm, so macro-F1 selection should be revisited against a recall- or cost-weighted criterion.
+  - weather_risk_score is generated out-of-fold by walk-forward retraining (6 folds): every region-day is scored by a Phase 3 estimator fitted only on strictly earlier days, giving AUC 0.849 train / 0.860 validation / 0.822 test. Scoring with the shipped Phase 3 artifact instead measured AUC 1.000 on train and validation against 0.875 on test — memorisation, which made all trained approaches tie at a meaningless validation macro-F1 of 1.000.
+  - satellite_risk_score is left in-sample: the Phase 4 checkpoint saw the fusion training scenes, but its measured AUC is stable across splits (0.842 train / 0.792 validation / 0.799 test), so it shows no comparable memorisation. Walk-forward retraining of the CNN was not run for this phase.
+  - The satellite branch classifies day T while the target is day T+1, so it contributes current convective state rather than a forecast; its standalone score on this task is correspondingly weaker than its Phase 4 nowcast score.
+  - Fusion is limited to the 922 region-days that have both modalities and an out-of-fold weather score — satellite coverage, not weather coverage, is the binding constraint.
+----------------------------------------------
+Performance:          GOOD
+==============================================

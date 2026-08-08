@@ -1,0 +1,338 @@
+{
+  "id": "experiment_002",
+  "date": "2026-08-08T05:10:34.403488+00:00",
+  "phase": "5-fusion",
+  "model_version": "v1",
+  "approaches": {
+    "weighted_fusion_w1.00": {
+      "accuracy": 0.8333333333333334,
+      "precision_macro": 0.7010539763653785,
+      "recall_macro": 0.7931998136935259,
+      "f1_macro": 0.7285981308411216
+    },
+    "random_forest": {
+      "accuracy": 0.7272727272727273,
+      "precision_macro": 0.6634822068306664,
+      "recall_macro": 0.8188169538891477,
+      "f1_macro": 0.65625
+    },
+    "xgboost": {
+      "accuracy": 0.8484848484848485,
+      "precision_macro": 0.6874680306905371,
+      "recall_macro": 0.6707033069399162,
+      "f1_macro": 0.6783625730994152
+    },
+    "neural_fusion": {
+      "accuracy": 0.8181818181818182,
+      "precision_macro": 0.679974449057809,
+      "recall_macro": 0.7624592454587797,
+      "f1_macro": 0.7039252336448598
+    },
+    "weather_only (baseline)": {
+      "accuracy": 0.8333333333333334,
+      "precision_macro": 0.7010539763653785,
+      "recall_macro": 0.7931998136935259,
+      "f1_macro": 0.7285981308411216
+    },
+    "satellite_only (baseline)": {
+      "accuracy": 0.6363636363636364,
+      "precision_macro": 0.6417910447761194,
+      "recall_macro": 0.7876106194690266,
+      "f1_macro": 0.5860987718839823
+    }
+  },
+  "weight_sweep": [
+    {
+      "weather_weight": 0.0,
+      "score": 0.5861
+    },
+    {
+      "weather_weight": 0.05,
+      "score": 0.5861
+    },
+    {
+      "weather_weight": 0.1,
+      "score": 0.5861
+    },
+    {
+      "weather_weight": 0.15,
+      "score": 0.5861
+    },
+    {
+      "weather_weight": 0.2,
+      "score": 0.5922
+    },
+    {
+      "weather_weight": 0.25,
+      "score": 0.5922
+    },
+    {
+      "weather_weight": 0.3,
+      "score": 0.587
+    },
+    {
+      "weather_weight": 0.35,
+      "score": 0.6054
+    },
+    {
+      "weather_weight": 0.4,
+      "score": 0.612
+    },
+    {
+      "weather_weight": 0.45,
+      "score": 0.6245
+    },
+    {
+      "weather_weight": 0.5,
+      "score": 0.6372
+    },
+    {
+      "weather_weight": 0.55,
+      "score": 0.67
+    },
+    {
+      "weather_weight": 0.6,
+      "score": 0.6836
+    },
+    {
+      "weather_weight": 0.65,
+      "score": 0.7049
+    },
+    {
+      "weather_weight": 0.7,
+      "score": 0.698
+    },
+    {
+      "weather_weight": 0.75,
+      "score": 0.7128
+    },
+    {
+      "weather_weight": 0.8,
+      "score": 0.7203
+    },
+    {
+      "weather_weight": 0.85,
+      "score": 0.7129
+    },
+    {
+      "weather_weight": 0.9,
+      "score": 0.7049
+    },
+    {
+      "weather_weight": 0.95,
+      "score": 0.7049
+    },
+    {
+      "weather_weight": 1.0,
+      "score": 0.7286
+    }
+  ],
+  "selected_model": "weighted_fusion_w1.00",
+  "selected_approach": "weighted",
+  "selection_reason": "highest validation macro-F1 (0.729) among the three fusion approaches, chronological splits, accuracy not used (class imbalance)",
+  "test_metrics": {
+    "accuracy": 0.7956204379562044,
+    "precision_macro": 0.5932659932659933,
+    "recall_macro": 0.6513661202185792,
+    "f1_macro": 0.6063218390804598,
+    "per_class": {
+      "0": {
+        "precision": 0.9272727272727272,
+        "recall": 0.8360655737704918,
+        "f1": 0.8793103448275862,
+        "support": 122
+      },
+      "1": {
+        "precision": 0.25925925925925924,
+        "recall": 0.4666666666666667,
+        "f1": 0.3333333333333333,
+        "support": 15
+      },
+      "2": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 0
+      }
+    },
+    "confusion_matrix": [
+      [
+        102,
+        20,
+        0
+      ],
+      [
+        8,
+        7,
+        0
+      ],
+      [
+        0,
+        0,
+        0
+      ]
+    ],
+    "evaluated_classes": [
+      0,
+      1
+    ],
+    "labels": [
+      0,
+      1,
+      2
+    ]
+  },
+  "single_modality_test": {
+    "weather_only": {
+      "accuracy": 0.7956204379562044,
+      "precision_macro": 0.5932659932659933,
+      "recall_macro": 0.6513661202185792,
+      "f1_macro": 0.6063218390804598,
+      "per_class": {
+        "0": {
+          "precision": 0.9272727272727272,
+          "recall": 0.8360655737704918,
+          "f1": 0.8793103448275862,
+          "support": 122
+        },
+        "1": {
+          "precision": 0.25925925925925924,
+          "recall": 0.4666666666666667,
+          "f1": 0.3333333333333333,
+          "support": 15
+        },
+        "2": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 0
+        }
+      },
+      "confusion_matrix": [
+        [
+          102,
+          20,
+          0
+        ],
+        [
+          8,
+          7,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "evaluated_classes": [
+        0,
+        1
+      ],
+      "labels": [
+        0,
+        1,
+        2
+      ]
+    },
+    "satellite_only": {
+      "accuracy": 0.6058394160583942,
+      "precision_macro": 0.5973347547974414,
+      "recall_macro": 0.7494535519125682,
+      "f1_macro": 0.5301067073170732,
+      "per_class": {
+        "0": {
+          "precision": 0.9857142857142858,
+          "recall": 0.5655737704918032,
+          "f1": 0.71875,
+          "support": 122
+        },
+        "1": {
+          "precision": 0.208955223880597,
+          "recall": 0.9333333333333333,
+          "f1": 0.34146341463414637,
+          "support": 15
+        },
+        "2": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 0
+        }
+      },
+      "confusion_matrix": [
+        [
+          69,
+          53,
+          0
+        ],
+        [
+          1,
+          14,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "evaluated_classes": [
+        0,
+        1
+      ],
+      "labels": [
+        0,
+        1,
+        2
+      ]
+    }
+  },
+  "improvement_pct_macro_f1": {
+    "weather_only": 0.0,
+    "satellite_only": 14.377318889081693
+  },
+  "dataset": {
+    "rows": 922,
+    "regions": [
+      "Assam",
+      "Chennai",
+      "Kerala",
+      "Mumbai"
+    ],
+    "date_range": [
+      "2004-09-06",
+      "2024-12-28"
+    ],
+    "target_counts": {
+      "0": 817,
+      "1": 104,
+      "2": 1
+    },
+    "splits": {
+      "train": 653,
+      "val": 132,
+      "test": 137
+    },
+    "source": "Phase 2 NASA POWER weather + Phase 4 NASA GIBS MODIS scene features"
+  },
+  "caveats": [
+    "Extreme (>=204.4 mm) is not measurable: 1 such region-day(s) survive into the fusion dataset and none fall in the held-out test period. Every Extreme figure in this report is structural, not evidence the class works. Needs IMD gridded / GPM IMERG data (already flagged for Phases 3 and 4).",
+    "The comparison is underpowered: selection rests on 132 validation region-days and the verdict on 137 test region-days holding only 15 high-impact day(s). Differences of a few macro-F1 points here are noise, not evidence one approach is better.",
+    "The selected blend is degenerate: the validation sweep chose weight 1.00, which discards the satellite branch entirely, so this 'fusion' is the weather model unchanged. On this data no blend of the two branches beat the stronger branch alone.",
+    "The selected fusion is conservative in the wrong direction: it recalls only 47% of Heavy days while raising overall accuracy. For an early-warning system a missed event costs more than a false alarm, so macro-F1 selection should be revisited against a recall- or cost-weighted criterion.",
+    "weather_risk_score is generated out-of-fold by walk-forward retraining (6 folds): every region-day is scored by a Phase 3 estimator fitted only on strictly earlier days, giving AUC 0.849 train / 0.860 validation / 0.822 test. Scoring with the shipped Phase 3 artifact instead measured AUC 1.000 on train and validation against 0.875 on test \u2014 memorisation, which made all trained approaches tie at a meaningless validation macro-F1 of 1.000.",
+    "satellite_risk_score is left in-sample: the Phase 4 checkpoint saw the fusion training scenes, but its measured AUC is stable across splits (0.842 train / 0.792 validation / 0.799 test), so it shows no comparable memorisation. Walk-forward retraining of the CNN was not run for this phase.",
+    "The satellite branch classifies day T while the target is day T+1, so it contributes current convective state rather than a forecast; its standalone score on this task is correspondingly weaker than its Phase 4 nowcast score.",
+    "Fusion is limited to the 922 region-days that have both modalities and an out-of-fold weather score \u2014 satellite coverage, not weather coverage, is the binding constraint."
+  ],
+  "artifacts": {
+    "bundle": "/Users/sangeetasinha/Desktop/isrosih/VARUNA-AI/ai_models/saved_models/varuna_fusion_model_v1.pkl",
+    "model_info": "/Users/sangeetasinha/Desktop/isrosih/VARUNA-AI/ai_models/saved_models/model_info.json",
+    "report": "/Users/sangeetasinha/Desktop/isrosih/VARUNA-AI/reports/hybrid_model_report_v1.txt",
+    "approach_comparison": "/Users/sangeetasinha/Desktop/isrosih/VARUNA-AI/reports/fusion_approach_comparison_v1.png",
+    "confusion_matrix": "/Users/sangeetasinha/Desktop/isrosih/VARUNA-AI/reports/fusion_confusion_matrix_v1.png",
+    "weight_sweep": "/Users/sangeetasinha/Desktop/isrosih/VARUNA-AI/reports/fusion_weight_sweep_v1.png",
+    "unified_dataset": "/Users/sangeetasinha/Desktop/isrosih/VARUNA-AI/data/processed/datasets/fusion_dataset.parquet"
+  }
+}

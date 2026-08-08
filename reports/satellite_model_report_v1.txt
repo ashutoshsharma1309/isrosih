@@ -1,0 +1,24 @@
+==============================================
+       VARUNA AI SATELLITE MODEL REPORT
+==============================================
+Model:                custom_cnn
+Version:              v1
+Task:                 Rainfall category from satellite cloud scene (0/1/2)
+Imagery:              1144 MODIS scenes (2001-05-31 → 2024-12-28)
+----------------------------------------------
+Accuracy:             86.5%   (imbalance-inflated; not the selection metric)
+Precision (macro):    85.5%
+Recall (macro):       87.1%
+F1 Score (macro):     86.0%
+----------------------------------------------
+Per-class performance (held-out test period):
+  Normal   precision  92.9%  recall  85.0%  (n=107)
+  Heavy    precision  78.1%  recall  89.1%  (n=64)
+  Extreme  precision   0.0%  recall   0.0%  (n=0)
+----------------------------------------------
+Validation comparison (selection metric: macro-F1):
+  custom_cnn   f1_macro 0.932  recall_macro 0.936  accuracy 0.933 <- selected
+----------------------------------------------
+Selection reason:     highest validation macro-F1 (0.932) with chronological splits; accuracy not used (class imbalance)
+Performance:          GOOD
+==============================================
