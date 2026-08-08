@@ -38,5 +38,11 @@ joblib>=1.4
 torch>=2.4
 torchvision>=0.19
 
+# Explainability (Phase 6)
+# NOTE: shap pulls numba, which constrains numpy. Installing it downgraded
+# numpy 2.5.1 -> 2.4.6 in this environment; the full suite passes on that.
+shap>=0.46
+captum>=0.7
+
 # Testing
 pytest>=8.3
