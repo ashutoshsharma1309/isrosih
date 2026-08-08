@@ -1,0 +1,35 @@
+# VARUNA AI backend dependencies.
+# Web framework and server
+fastapi>=0.115
+uvicorn[standard]>=0.32
+pydantic>=2.9
+pydantic-settings>=2.6
+
+# Database (PostgreSQL + PostGIS)
+sqlalchemy>=2.0
+geoalchemy2>=0.15
+psycopg[binary]>=3.2
+alembic>=1.13
+
+# Data handling (shared with ai_models/ and the data pipeline)
+numpy>=1.26
+pandas>=2.2
+pyarrow>=17.0            # parquet datasets
+pyyaml>=6.0              # config/data_config.yaml
+opencv-python-headless>=4.10  # satellite image preprocessing
+
+# NetCDF/HDF5 handling for ERA5 / IMERG / INSAT products (Phase 2+)
+xarray>=2024.6
+netcdf4>=1.7
+
+# HTTP client for external data sources (MOSDAC, NASA Earthdata)
+httpx>=0.27
+
+# Machine learning (baseline models, Phase 3)
+scikit-learn>=1.5
+xgboost>=2.1
+matplotlib>=3.9
+joblib>=1.4
+
+# Testing
+pytest>=8.3
