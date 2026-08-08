@@ -1,0 +1,1427 @@
+[
+  {
+    "prediction": "Heavy Rainfall",
+    "probability": 0.9966,
+    "confidence": "High",
+    "confidence_pct": 84.2,
+    "risk_level": "CRITICAL",
+    "top_features": [
+      "Rainfall, past 24h",
+      "Rainfall, past 3 days",
+      "Rainfall, past 7 days",
+      "Longitude",
+      "Cloud cover",
+      "Latitude"
+    ],
+    "satellite_regions": [
+      "cloud_cluster_area_1",
+      "cloud_cluster_area_2"
+    ],
+    "explanation": "Conditions indicate a critical risk of high-impact rainfall (Heavy Rainfall, 99.7% probability). Risk was raised mainly by heavy rainfall in the past 24 hours, sustained rainfall over the past three days and a wet preceding week. The satellite model read this scene as 57% risk, but the fusion gives its branch zero weight, so it did not influence this forecast. These conditions most closely resemble Kerala 2019-08-07 (Heavy, 65 mm), at 65% similarity. Confidence is 84%, based on moderate agreement between the weather and satellite branches, 65% similarity to the closest past event and good input data quality.",
+    "feature_attributions": [
+      {
+        "feature": "rain_sum_1d",
+        "label": "Rainfall, past 24h",
+        "value": 72.67,
+        "contribution": 0.137204,
+        "contribution_pct": 33.5,
+        "impact": "Critical",
+        "direction": "raises risk",
+        "branch": "weather",
+        "imputed": false
+      },
+      {
+        "feature": "rain_sum_3d",
+        "label": "Rainfall, past 3 days",
+        "value": 152.12,
+        "contribution": 0.065252,
+        "contribution_pct": 15.9,
+        "impact": "High",
+        "direction": "raises risk",
+        "branch": "weather",
+        "imputed": false
+      },
+      {
+        "feature": "rain_sum_7d",
+        "label": "Rainfall, past 7 days",
+        "value": 221.92,
+        "contribution": 0.059287,
+        "contribution_pct": 14.5,
+        "impact": "Medium",
+        "direction": "raises risk",
+        "branch": "weather",
+        "imputed": false
+      },
+      {
+        "feature": "longitude",
+        "label": "Longitude",
+        "value": 72.85,
+        "contribution": 0.053513,
+        "contribution_pct": 13.0,
+        "impact": "Medium",
+        "direction": "raises risk",
+        "branch": "weather",
+        "imputed": false
+      },
+      {
+        "feature": "cloud_cover_pct",
+        "label": "Cloud cover",
+        "value": 99.88,
+        "contribution": 0.018137,
+        "contribution_pct": 4.4,
+        "impact": "Low",
+        "direction": "raises risk",
+        "branch": "weather",
+        "imputed": false
+      },
+      {
+        "feature": "latitude",
+        "label": "Latitude",
+        "value": 19.05,
+        "contribution": 0.017282,
+        "contribution_pct": 4.2,
+        "impact": "Low",
+        "direction": "raises risk",
+        "branch": "weather",
+        "imputed": false
+      }
+    ],
+    "confidence_explanation": {
+      "confidence_pct": 84.2,
+      "confidence": "High",
+      "factors": {
+        "model_agreement": 0.7099,
+        "historical_similarity": 0.6518,
+        "data_quality": "Good",
+        "data_quality_score": 1.0
+      },
+      "components": {
+        "prediction_strength": 0.9966,
+        "weights": {
+          "prediction_strength": 0.5,
+          "model_agreement": 0.3,
+          "historical_similarity": 0.2
+        },
+        "usable_scene_fraction": 1.0,
+        "imputed_input_count": 0,
+        "weather_branch_weight": 1.0
+      }
+    },
+    "satellite_explanation": {
+      "model": "custom_cnn",
+      "target_layer": "features.3",
+      "predicted_category": 1,
+      "class_probabilities": {
+        "Normal": 0.434,
+        "Heavy": 0.5616,
+        "Extreme": 0.0045
+      },
+      "satellite_risk_score": 0.566,
+      "high_influence_coverage": 0.2199,
+      "coverage_label": "substantial",
+      "regions": [
+        {
+          "name": "cloud_cluster_area_1",
+          "bbox": [
+            0.6719,
+            0.0,
+            1.0,
+            0.7891
+          ],
+          "area_share": 0.1604,
+          "intensity": 0.6523,
+          "position": "eastern edge of the scene"
+        },
+        {
+          "name": "cloud_cluster_area_2",
+          "bbox": [
+            0.4062,
+            0.0,
+            0.7305,
+            0.1934
+          ],
+          "area_share": 0.0475,
+          "intensity": 0.7694,
+          "position": "northern part of the scene"
+        }
+      ],
+      "notes": []
+    },
+    "historical_explanation": {
+      "reference_events": 90,
+      "closest_match": {
+        "event": "Kerala 2019-08-07 (Heavy, 65 mm)",
+        "region": "Kerala",
+        "date": "2019-08-07",
+        "observed_category": 1,
+        "observed_rainfall_mm": 65.2,
+        "similarity": 0.6518,
+        "similarity_pct": 65.2
+      },
+      "matches": [
+        {
+          "event": "Kerala 2019-08-07 (Heavy, 65 mm)",
+          "region": "Kerala",
+          "date": "2019-08-07",
+          "observed_category": 1,
+          "observed_rainfall_mm": 65.2,
+          "similarity": 0.6518,
+          "similarity_pct": 65.2
+        },
+        {
+          "event": "Kerala 2006-05-27 (Heavy, 94 mm)",
+          "region": "Kerala",
+          "date": "2006-05-27",
+          "observed_category": 1,
+          "observed_rainfall_mm": 93.6,
+          "similarity": 0.6276,
+          "similarity_pct": 62.8
+        },
+        {
+          "event": "Mumbai 2019-06-30 (Heavy, 73 mm)",
+          "region": "Mumbai",
+          "date": "2019-06-30",
+          "observed_category": 1,
+          "observed_rainfall_mm": 73.3,
+          "similarity": 0.6198,
+          "similarity_pct": 62.0
+        }
+      ],
+      "notes": []
+    },
+    "shap_detail": {
+      "method": "chain-rule TreeSHAP through the weather branch",
+      "base_value": 0.666611,
+      "predicted_risk": 0.996625,
+      "served_risk": 0.8561,
+      "branch_weights": {
+        "weather": 1.0,
+        "satellite": 0.0
+      },
+      "branch_contributions": {
+        "weather": 0.330014,
+        "satellite": 0.0
+      },
+      "top_features": [
+        {
+          "feature": "rain_sum_1d",
+          "label": "Rainfall, past 24h",
+          "value": 72.67,
+          "contribution": 0.137204,
+          "contribution_pct": 33.5,
+          "impact": "Critical",
+          "direction": "raises risk",
+          "branch": "weather",
+          "imputed": false
+        },
+        {
+          "feature": "rain_sum_3d",
+          "label": "Rainfall, past 3 days",
+          "value": 152.12,
+          "contribution": 0.065252,
+          "contribution_pct": 15.9,
+          "impact": "High",
+          "direction": "raises risk",
+          "branch": "weather",
+          "imputed": false
+        },
+        {
+          "feature": "rain_sum_7d",
+          "label": "Rainfall, past 7 days",
+          "value": 221.92,
+          "contribution": 0.059287,
+          "contribution_pct": 14.5,
+          "impact": "Medium",
+          "direction": "raises risk",
+          "branch": "weather",
+          "imputed": false
+        },
+        {
+          "feature": "longitude",
+          "label": "Longitude",
+          "value": 72.85,
+          "contribution": 0.053513,
+          "contribution_pct": 13.0,
+          "impact": "Medium",
+          "direction": "raises risk",
+          "branch": "weather",
+          "imputed": false
+        },
+        {
+          "feature": "cloud_cover_pct",
+          "label": "Cloud cover",
+          "value": 99.88,
+          "contribution": 0.018137,
+          "contribution_pct": 4.4,
+          "impact": "Low",
+          "direction": "raises risk",
+          "branch": "weather",
+          "imputed": false
+        },
+        {
+          "feature": "latitude",
+          "label": "Latitude",
+          "value": 19.05,
+          "contribution": 0.017282,
+          "contribution_pct": 4.2,
+          "impact": "Low",
+          "direction": "raises risk",
+          "branch": "weather",
+          "imputed": false
+        }
+      ],
+      "all_features": [
+        {
+          "feature": "temperature_c",
+          "label": "Temperature",
+          "value": 27.63,
+          "contribution": -0.00305,
+          "contribution_pct": -0.7,
+          "impact": "Low",
+          "direction": "lowers risk",
+          "branch": "weather",
+          "imputed": false
+        },
+        {
+          "feature": "humidity_pct",
+          "label": "Humidity",
+          "value": 87.4,
+          "contribution": -0.016223,
+          "contribution_pct": -4.0,
+          "impact": "Low",
+          "direction": "lowers risk",
+          "branch": "weather",
+          "imputed": false
+        },
+        {
+          "feature": "pressure_hpa",
+          "label": "Atmospheric pressure",
+          "value": 993.3,
+          "contribution": 0.001757,
+          "contribution_pct": 0.4,
+          "impact": "Low",
+          "direction": "falling \u2014 raises risk",
+          "branch": "weather",
+          "imputed": false
+        },
+        {
+          "feature": "wind_speed_ms",
+          "label": "Wind speed",
+          "value": 4.85,
+          "contribution": 0.011945,
+          "contribution_pct": 2.9,
+          "impact": "Low",
+          "direction": "raises risk",
+          "branch": "weather",
+          "imputed": false
+        },
+        {
+          "feature": "wind_direction_deg",
+          "label": "Wind direction",
+          "value": 235.6,
+          "contribution": -0.011915,
+          "contribution_pct": -2.9,
+          "impact": "Low",
+          "direction": "lowers risk",
+          "branch": "weather",
+          "imputed": false
+        },
+        {
+          "feature": "cloud_cover_pct",
+          "label": "Cloud cover",
+          "value": 99.88,
+          "contribution": 0.018137,
+          "contribution_pct": 4.4,
+          "impact": "Low",
+          "direction": "raises risk",
+          "branch": "weather",
+          "imputed": false
+        },
+        {
+          "feature": "latitude",
+          "label": "Latitude",
+          "value": 19.05,
+          "contribution": 0.017282,
+          "contribution_pct": 4.2,
+          "impact": "Low",
+          "direction": "raises risk",
+          "branch": "weather",
+          "imputed": false
+        },
+        {
+          "feature": "longitude",
+          "label": "Longitude",
+          "value": 72.85,
+          "contribution": 0.053513,
+          "contribution_pct": 13.0,
+          "impact": "Medium",
+          "direction": "raises risk",
+          "branch": "weather",
+          "imputed": false
+        },
+        {
+          "feature": "rain_sum_1d",
+          "label": "Rainfall, past 24h",
+          "value": 72.67,
+          "contribution": 0.137204,
+          "contribution_pct": 33.5,
+          "impact": "Critical",
+          "direction": "raises risk",
+          "branch": "weather",
+          "imputed": false
+        },
+        {
+          "feature": "rain_sum_3d",
+          "label": "Rainfall, past 3 days",
+          "value": 152.12,
+          "contribution": 0.065252,
+          "contribution_pct": 15.9,
+          "impact": "High",
+          "direction": "raises risk",
+          "branch": "weather",
+          "imputed": false
+        },
+        {
+          "feature": "rain_sum_7d",
+          "label": "Rainfall, past 7 days",
+          "value": 221.92,
+          "contribution": 0.059287,
+          "contribution_pct": 14.5,
+          "impact": "Medium",
+          "direction": "raises risk",
+          "branch": "weather",
+          "imputed": false
+        },
+        {
+          "feature": "rain_sum_30d",
+          "label": "Rainfall, past 30 days",
+          "value": 286.46,
+          "contribution": -0.001435,
+          "contribution_pct": -0.3,
+          "impact": "Low",
+          "direction": "lowers risk",
+          "branch": "weather",
+          "imputed": false
+        },
+        {
+          "feature": "rain_trend_3d",
+          "label": "Rainfall trend",
+          "value": 103.73,
+          "contribution": 0.005711,
+          "contribution_pct": 1.4,
+          "impact": "Low",
+          "direction": "raises risk",
+          "branch": "weather",
+          "imputed": false
+        },
+        {
+          "feature": "season_sin",
+          "label": "Seasonal phase",
+          "value": 0.1478,
+          "contribution": -0.000813,
+          "contribution_pct": -0.2,
+          "impact": "Low",
+          "direction": "lowers risk",
+          "branch": "weather",
+          "imputed": false
+        },
+        {
+          "feature": "season_cos",
+          "label": "Seasonal phase",
+          "value": -0.989,
+          "contribution": -0.006636,
+          "contribution_pct": -1.6,
+          "impact": "Low",
+          "direction": "lowers risk",
+          "branch": "weather",
+          "imputed": false
+        }
+      ],
+      "unattributed_inputs": [
+        {
+          "inputs": "satellite scene features and satellite risk score",
+          "reason": "satellite branch weight is 0.00 in the selected fusion"
+        },
+        {
+          "inputs": "cloud_density, brightness_mean, spatial_dispersion, cold_top_fraction, cloud_growth_rate",
+          "reason": "the selected weighted fusion consumes only the two upstream probability vectors, so these columns cannot move its output"
+        }
+      ],
+      "notes": [
+        "Attribution follows the fusion chain rule: SHAP on the branch that reads each input, scaled by that branch's weight (weather 1.00, satellite 0.00).",
+        "Weather attributions are exact TreeSHAP values on the Phase 3 forest, so the baseline plus the attributions reconstruct the explained risk exactly.",
+        "The stored fusion output for this row is 0.8561 against the explained 0.9966. Dataset rows carry out-of-fold upstream probabilities, while this explanation runs the shipped Phase 3 artifact \u2014 the one that serves live predictions. The gap is the out-of-fold correction, not an explanation error.",
+        "The validation weight sweep gave the satellite branch weight 0.00, so it contributes exactly nothing to this decision. The Grad-CAM heatmap therefore explains the satellite model's own same-day reading, not the fused forecast."
+      ]
+    },
+    "caveats": [
+      "Attribution follows the fusion chain rule: SHAP on the branch that reads each input, scaled by that branch's weight (weather 1.00, satellite 0.00).",
+      "Weather attributions are exact TreeSHAP values on the Phase 3 forest, so the baseline plus the attributions reconstruct the explained risk exactly.",
+      "The stored fusion output for this row is 0.8561 against the explained 0.9966. Dataset rows carry out-of-fold upstream probabilities, while this explanation runs the shipped Phase 3 artifact \u2014 the one that serves live predictions. The gap is the out-of-fold correction, not an explanation error.",
+      "The validation weight sweep gave the satellite branch weight 0.00, so it contributes exactly nothing to this decision. The Grad-CAM heatmap therefore explains the satellite model's own same-day reading, not the fused forecast.",
+      "Location and calendar terms carry 22% of the attribution for this prediction. They are real model inputs and appear in the attribution table, but they are not voiced as causes because they describe where and when the region is, not what the weather is doing."
+    ],
+    "artifacts": {
+      "shap_bar": "/Users/sangeetasinha/Desktop/isrosih/VARUNA-AI/reports/shap/shap_bar.png",
+      "shap_waterfall": "/Users/sangeetasinha/Desktop/isrosih/VARUNA-AI/reports/shap/shap_waterfall.png",
+      "gradcam_overlay": "/Users/sangeetasinha/Desktop/isrosih/VARUNA-AI/reports/gradcam/gradcam_mumbai_2005-06-23.png"
+    },
+    "context": {
+      "region": "Mumbai",
+      "date": "2005-06-23",
+      "fusion_model": "weighted_fusion_w1.00",
+      "fusion_approach": "weighted"
+    },
+    "generated_at": "2026-08-08T06:17:39.734896+00:00"
+  },
+  {
+    "prediction": "Heavy Rainfall",
+    "probability": 0.9973,
+    "confidence": "High",
+    "confidence_pct": 95.4,
+    "risk_level": "CRITICAL",
+    "top_features": [
+      "Rainfall, past 24h",
+      "Longitude",
+      "Rainfall, past 3 days",
+      "Rainfall, past 7 days",
+      "Humidity",
+      "Wind direction"
+    ],
+    "satellite_regions": [
+      "cloud_cluster_area_1",
+      "cloud_cluster_area_2"
+    ],
+    "explanation": "Conditions indicate a critical risk of high-impact rainfall (Heavy Rainfall, 99.7% probability). Risk was raised mainly by heavy rainfall in the past 24 hours, sustained rainfall over the past three days and a wet preceding week. The satellite model read this scene as 80% risk, but the fusion gives its branch zero weight, so it did not influence this forecast. These conditions most closely resemble Mumbai 2017-07-18 (Heavy, 66 mm), at 79% similarity. Confidence is 95%, based on high agreement between the weather and satellite branches, 79% similarity to the closest past event and good input data quality.",
+    "feature_attributions": [
+      {
+        "feature": "rain_sum_1d",
+        "label": "Rainfall, past 24h",
+        "value": 77.93,
+        "contribution": 0.12606,
+        "contribution_pct": 30.0,
+        "impact": "Critical",
+        "direction": "raises risk",
+        "branch": "weather",
+        "imputed": false
+      },
+      {
+        "feature": "longitude",
+        "label": "Longitude",
+        "value": 72.85,
+        "contribution": 0.060858,
+        "contribution_pct": 14.5,
+        "impact": "Medium",
+        "direction": "raises risk",
+        "branch": "weather",
+        "imputed": false
+      },
+      {
+        "feature": "rain_sum_3d",
+        "label": "Rainfall, past 3 days",
+        "value": 170.87,
+        "contribution": 0.050408,
+        "contribution_pct": 12.0,
+        "impact": "Medium",
+        "direction": "raises risk",
+        "branch": "weather",
+        "imputed": false
+      },
+      {
+        "feature": "rain_sum_7d",
+        "label": "Rainfall, past 7 days",
+        "value": 341.39,
+        "contribution": 0.050227,
+        "contribution_pct": 12.0,
+        "impact": "Medium",
+        "direction": "raises risk",
+        "branch": "weather",
+        "imputed": false
+      },
+      {
+        "feature": "humidity_pct",
+        "label": "Humidity",
+        "value": 91.55,
+        "contribution": 0.035952,
+        "contribution_pct": 8.6,
+        "impact": "Medium",
+        "direction": "raises risk",
+        "branch": "weather",
+        "imputed": false
+      },
+      {
+        "feature": "wind_direction_deg",
+        "label": "Wind direction",
+        "value": 246.4,
+        "contribution": -0.01902,
+        "contribution_pct": -4.5,
+        "impact": "Low",
+        "direction": "lowers risk",
+        "branch": "weather",
+        "imputed": false
+      }
+    ],
+    "confidence_explanation": {
+      "confidence_pct": 95.4,
+      "confidence": "High",
+      "factors": {
+        "model_agreement": 0.9884,
+        "historical_similarity": 0.7918,
+        "data_quality": "Good",
+        "data_quality_score": 1.0
+      },
+      "components": {
+        "prediction_strength": 0.9973,
+        "weights": {
+          "prediction_strength": 0.5,
+          "model_agreement": 0.3,
+          "historical_similarity": 0.2
+        },
+        "usable_scene_fraction": 1.0,
+        "imputed_input_count": 0,
+        "weather_branch_weight": 1.0
+      }
+    },
+    "satellite_explanation": {
+      "model": "custom_cnn",
+      "target_layer": "features.3",
+      "predicted_category": 1,
+      "class_probabilities": {
+        "Normal": 0.2015,
+        "Heavy": 0.7402,
+        "Extreme": 0.0584
+      },
+      "satellite_risk_score": 0.7985,
+      "high_influence_coverage": 0.1709,
+      "coverage_label": "substantial",
+      "regions": [
+        {
+          "name": "cloud_cluster_area_1",
+          "bbox": [
+            0.0,
+            0.0,
+            0.3555,
+            0.6035
+          ],
+          "area_share": 0.1491,
+          "intensity": 0.7039,
+          "position": "northern-western quadrant"
+        },
+        {
+          "name": "cloud_cluster_area_2",
+          "bbox": [
+            0.7422,
+            0.2637,
+            0.9199,
+            0.4258
+          ],
+          "area_share": 0.0218,
+          "intensity": 0.7213,
+          "position": "northern-eastern quadrant"
+        }
+      ],
+      "notes": []
+    },
+    "historical_explanation": {
+      "reference_events": 90,
+      "closest_match": {
+        "event": "Mumbai 2017-07-18 (Heavy, 66 mm)",
+        "region": "Mumbai",
+        "date": "2017-07-18",
+        "observed_category": 1,
+        "observed_rainfall_mm": 65.8,
+        "similarity": 0.7918,
+        "similarity_pct": 79.2
+      },
+      "matches": [
+        {
+          "event": "Mumbai 2017-07-18 (Heavy, 66 mm)",
+          "region": "Mumbai",
+          "date": "2017-07-18",
+          "observed_category": 1,
+          "observed_rainfall_mm": 65.8,
+          "similarity": 0.7918,
+          "similarity_pct": 79.2
+        },
+        {
+          "event": "Mumbai 2019-08-02 (Heavy, 66 mm)",
+          "region": "Mumbai",
+          "date": "2019-08-02",
+          "observed_category": 1,
+          "observed_rainfall_mm": 65.6,
+          "similarity": 0.7758,
+          "similarity_pct": 77.6
+        },
+        {
+          "event": "Mumbai 2008-08-09 (Heavy, 72 mm)",
+          "region": "Mumbai",
+          "date": "2008-08-09",
+          "observed_category": 1,
+          "observed_rainfall_mm": 71.8,
+          "similarity": 0.7625,
+          "similarity_pct": 76.3
+        }
+      ],
+      "notes": []
+    },
+    "shap_detail": {
+      "method": "chain-rule TreeSHAP through the weather branch",
+      "base_value": 0.666611,
+      "predicted_risk": 0.997267,
+      "served_risk": 0.810126,
+      "branch_weights": {
+        "weather": 1.0,
+        "satellite": 0.0
+      },
+      "branch_contributions": {
+        "weather": 0.330656,
+        "satellite": 0.0
+      },
+      "top_features": [
+        {
+          "feature": "rain_sum_1d",
+          "label": "Rainfall, past 24h",
+          "value": 77.93,
+          "contribution": 0.12606,
+          "contribution_pct": 30.0,
+          "impact": "Critical",
+          "direction": "raises risk",
+          "branch": "weather",
+          "imputed": false
+        },
+        {
+          "feature": "longitude",
+          "label": "Longitude",
+          "value": 72.85,
+          "contribution": 0.060858,
+          "contribution_pct": 14.5,
+          "impact": "Medium",
+          "direction": "raises risk",
+          "branch": "weather",
+          "imputed": false
+        },
+        {
+          "feature": "rain_sum_3d",
+          "label": "Rainfall, past 3 days",
+          "value": 170.87,
+          "contribution": 0.050408,
+          "contribution_pct": 12.0,
+          "impact": "Medium",
+          "direction": "raises risk",
+          "branch": "weather",
+          "imputed": false
+        },
+        {
+          "feature": "rain_sum_7d",
+          "label": "Rainfall, past 7 days",
+          "value": 341.39,
+          "contribution": 0.050227,
+          "contribution_pct": 12.0,
+          "impact": "Medium",
+          "direction": "raises risk",
+          "branch": "weather",
+          "imputed": false
+        },
+        {
+          "feature": "humidity_pct",
+          "label": "Humidity",
+          "value": 91.55,
+          "contribution": 0.035952,
+          "contribution_pct": 8.6,
+          "impact": "Medium",
+          "direction": "raises risk",
+          "branch": "weather",
+          "imputed": false
+        },
+        {
+          "feature": "wind_direction_deg",
+          "label": "Wind direction",
+          "value": 246.4,
+          "contribution": -0.01902,
+          "contribution_pct": -4.5,
+          "impact": "Low",
+          "direction": "lowers risk",
+          "branch": "weather",
+          "imputed": false
+        }
+      ],
+      "all_features": [
+        {
+          "feature": "temperature_c",
+          "label": "Temperature",
+          "value": 26.3,
+          "contribution": -0.004892,
+          "contribution_pct": -1.2,
+          "impact": "Low",
+          "direction": "lowers risk",
+          "branch": "weather",
+          "imputed": false
+        },
+        {
+          "feature": "humidity_pct",
+          "label": "Humidity",
+          "value": 91.55,
+          "contribution": 0.035952,
+          "contribution_pct": 8.6,
+          "impact": "Medium",
+          "direction": "raises risk",
+          "branch": "weather",
+          "imputed": false
+        },
+        {
+          "feature": "pressure_hpa",
+          "label": "Atmospheric pressure",
+          "value": 993.1,
+          "contribution": -0.000816,
+          "contribution_pct": -0.2,
+          "impact": "Low",
+          "direction": "rising \u2014 lowers risk",
+          "branch": "weather",
+          "imputed": false
+        },
+        {
+          "feature": "wind_speed_ms",
+          "label": "Wind speed",
+          "value": 6.28,
+          "contribution": 0.010855,
+          "contribution_pct": 2.6,
+          "impact": "Low",
+          "direction": "raises risk",
+          "branch": "weather",
+          "imputed": false
+        },
+        {
+          "feature": "wind_direction_deg",
+          "label": "Wind direction",
+          "value": 246.4,
+          "contribution": -0.01902,
+          "contribution_pct": -4.5,
+          "impact": "Low",
+          "direction": "lowers risk",
+          "branch": "weather",
+          "imputed": false
+        },
+        {
+          "feature": "cloud_cover_pct",
+          "label": "Cloud cover",
+          "value": 99.7,
+          "contribution": 0.018154,
+          "contribution_pct": 4.3,
+          "impact": "Low",
+          "direction": "raises risk",
+          "branch": "weather",
+          "imputed": false
+        },
+        {
+          "feature": "latitude",
+          "label": "Latitude",
+          "value": 19.05,
+          "contribution": 0.015939,
+          "contribution_pct": 3.8,
+          "impact": "Low",
+          "direction": "raises risk",
+          "branch": "weather",
+          "imputed": false
+        },
+        {
+          "feature": "longitude",
+          "label": "Longitude",
+          "value": 72.85,
+          "contribution": 0.060858,
+          "contribution_pct": 14.5,
+          "impact": "Medium",
+          "direction": "raises risk",
+          "branch": "weather",
+          "imputed": false
+        },
+        {
+          "feature": "rain_sum_1d",
+          "label": "Rainfall, past 24h",
+          "value": 77.93,
+          "contribution": 0.12606,
+          "contribution_pct": 30.0,
+          "impact": "Critical",
+          "direction": "raises risk",
+          "branch": "weather",
+          "imputed": false
+        },
+        {
+          "feature": "rain_sum_3d",
+          "label": "Rainfall, past 3 days",
+          "value": 170.87,
+          "contribution": 0.050408,
+          "contribution_pct": 12.0,
+          "impact": "Medium",
+          "direction": "raises risk",
+          "branch": "weather",
+          "imputed": false
+        },
+        {
+          "feature": "rain_sum_7d",
+          "label": "Rainfall, past 7 days",
+          "value": 341.39,
+          "contribution": 0.050227,
+          "contribution_pct": 12.0,
+          "impact": "Medium",
+          "direction": "raises risk",
+          "branch": "weather",
+          "imputed": false
+        },
+        {
+          "feature": "rain_sum_30d",
+          "label": "Rainfall, past 30 days",
+          "value": 874.72,
+          "contribution": -0.012103,
+          "contribution_pct": -2.9,
+          "impact": "Low",
+          "direction": "lowers risk",
+          "branch": "weather",
+          "imputed": false
+        },
+        {
+          "feature": "rain_trend_3d",
+          "label": "Rainfall trend",
+          "value": 10.1,
+          "contribution": -0.006525,
+          "contribution_pct": -1.6,
+          "impact": "Low",
+          "direction": "lowers risk",
+          "branch": "weather",
+          "imputed": false
+        },
+        {
+          "feature": "season_sin",
+          "label": "Seasonal phase",
+          "value": -0.2614,
+          "contribution": -0.00131,
+          "contribution_pct": -0.3,
+          "impact": "Low",
+          "direction": "lowers risk",
+          "branch": "weather",
+          "imputed": false
+        },
+        {
+          "feature": "season_cos",
+          "label": "Seasonal phase",
+          "value": -0.9652,
+          "contribution": 0.006868,
+          "contribution_pct": 1.6,
+          "impact": "Low",
+          "direction": "raises risk",
+          "branch": "weather",
+          "imputed": false
+        }
+      ],
+      "unattributed_inputs": [
+        {
+          "inputs": "satellite scene features and satellite risk score",
+          "reason": "satellite branch weight is 0.00 in the selected fusion"
+        },
+        {
+          "inputs": "cloud_density, brightness_mean, spatial_dispersion, cold_top_fraction, cloud_growth_rate",
+          "reason": "the selected weighted fusion consumes only the two upstream probability vectors, so these columns cannot move its output"
+        }
+      ],
+      "notes": [
+        "Attribution follows the fusion chain rule: SHAP on the branch that reads each input, scaled by that branch's weight (weather 1.00, satellite 0.00).",
+        "Weather attributions are exact TreeSHAP values on the Phase 3 forest, so the baseline plus the attributions reconstruct the explained risk exactly.",
+        "The stored fusion output for this row is 0.8101 against the explained 0.9973. Dataset rows carry out-of-fold upstream probabilities, while this explanation runs the shipped Phase 3 artifact \u2014 the one that serves live predictions. The gap is the out-of-fold correction, not an explanation error.",
+        "The validation weight sweep gave the satellite branch weight 0.00, so it contributes exactly nothing to this decision. The Grad-CAM heatmap therefore explains the satellite model's own same-day reading, not the fused forecast."
+      ]
+    },
+    "caveats": [
+      "Attribution follows the fusion chain rule: SHAP on the branch that reads each input, scaled by that branch's weight (weather 1.00, satellite 0.00).",
+      "Weather attributions are exact TreeSHAP values on the Phase 3 forest, so the baseline plus the attributions reconstruct the explained risk exactly.",
+      "The stored fusion output for this row is 0.8101 against the explained 0.9973. Dataset rows carry out-of-fold upstream probabilities, while this explanation runs the shipped Phase 3 artifact \u2014 the one that serves live predictions. The gap is the out-of-fold correction, not an explanation error.",
+      "The validation weight sweep gave the satellite branch weight 0.00, so it contributes exactly nothing to this decision. The Grad-CAM heatmap therefore explains the satellite model's own same-day reading, not the fused forecast.",
+      "Location and calendar terms carry 25% of the attribution for this prediction. They are real model inputs and appear in the attribution table, but they are not voiced as causes because they describe where and when the region is, not what the weather is doing."
+    ],
+    "artifacts": {
+      "shap_bar": "/Users/sangeetasinha/Desktop/isrosih/VARUNA-AI/reports/shap/shap_bar.png",
+      "shap_waterfall": "/Users/sangeetasinha/Desktop/isrosih/VARUNA-AI/reports/shap/shap_waterfall.png",
+      "gradcam_overlay": "/Users/sangeetasinha/Desktop/isrosih/VARUNA-AI/reports/gradcam/gradcam_mumbai_2017-07-17.png"
+    },
+    "context": {
+      "region": "Mumbai",
+      "date": "2017-07-17",
+      "fusion_model": "weighted_fusion_w1.00",
+      "fusion_approach": "weighted"
+    },
+    "generated_at": "2026-08-08T06:17:39.735103+00:00"
+  },
+  {
+    "prediction": "Heavy Rainfall",
+    "probability": 0.7961,
+    "confidence": "High",
+    "confidence_pct": 83.5,
+    "risk_level": "CRITICAL",
+    "top_features": [
+      "Rainfall, past 24h",
+      "Rainfall, past 30 days",
+      "Longitude",
+      "Rainfall trend",
+      "Rainfall, past 7 days",
+      "Wind speed"
+    ],
+    "satellite_regions": [
+      "cloud_cluster_area_1",
+      "cloud_cluster_area_2"
+    ],
+    "explanation": "Conditions indicate a critical risk of high-impact rainfall (Heavy Rainfall, 80% probability). Risk was raised mainly by heavy rainfall in the past 24 hours, a wet preceding week and strengthening winds, while a dry preceding month and an easing rainfall trend pulled it back. The satellite model read this scene as 96% risk, but the fusion gives its branch zero weight, so it did not influence this forecast. These conditions most closely resemble Mumbai 2007-06-30 (Heavy, 153 mm), at 73% similarity. Confidence is 83%, based on high agreement between the weather and satellite branches, 73% similarity to the closest past event and good input data quality.",
+    "feature_attributions": [
+      {
+        "feature": "rain_sum_1d",
+        "label": "Rainfall, past 24h",
+        "value": 117.88,
+        "contribution": 0.126364,
+        "contribution_pct": 30.2,
+        "impact": "Critical",
+        "direction": "raises risk",
+        "branch": "weather",
+        "imputed": false
+      },
+      {
+        "feature": "rain_sum_30d",
+        "label": "Rainfall, past 30 days",
+        "value": 1191.44,
+        "contribution": -0.080751,
+        "contribution_pct": -19.3,
+        "impact": "High",
+        "direction": "lowers risk",
+        "branch": "weather",
+        "imputed": false
+      },
+      {
+        "feature": "longitude",
+        "label": "Longitude",
+        "value": 72.85,
+        "contribution": 0.059874,
+        "contribution_pct": 14.3,
+        "impact": "Medium",
+        "direction": "raises risk",
+        "branch": "weather",
+        "imputed": false
+      },
+      {
+        "feature": "rain_trend_3d",
+        "label": "Rainfall trend",
+        "value": 172.61,
+        "contribution": -0.031846,
+        "contribution_pct": -7.6,
+        "impact": "Medium",
+        "direction": "lowers risk",
+        "branch": "weather",
+        "imputed": false
+      },
+      {
+        "feature": "rain_sum_7d",
+        "label": "Rainfall, past 7 days",
+        "value": 485.56,
+        "contribution": 0.023303,
+        "contribution_pct": 5.6,
+        "impact": "Medium",
+        "direction": "raises risk",
+        "branch": "weather",
+        "imputed": false
+      },
+      {
+        "feature": "wind_speed_ms",
+        "label": "Wind speed",
+        "value": 6.96,
+        "contribution": 0.017582,
+        "contribution_pct": 4.2,
+        "impact": "Low",
+        "direction": "raises risk",
+        "branch": "weather",
+        "imputed": false
+      }
+    ],
+    "confidence_explanation": {
+      "confidence_pct": 83.5,
+      "confidence": "High",
+      "factors": {
+        "model_agreement": 0.9698,
+        "historical_similarity": 0.728,
+        "data_quality": "Good",
+        "data_quality_score": 1.0
+      },
+      "components": {
+        "prediction_strength": 0.7961,
+        "weights": {
+          "prediction_strength": 0.5,
+          "model_agreement": 0.3,
+          "historical_similarity": 0.2
+        },
+        "usable_scene_fraction": 1.0,
+        "imputed_input_count": 0,
+        "weather_branch_weight": 1.0
+      }
+    },
+    "satellite_explanation": {
+      "model": "custom_cnn",
+      "target_layer": "features.3",
+      "predicted_category": 1,
+      "class_probabilities": {
+        "Normal": 0.0355,
+        "Heavy": 0.5718,
+        "Extreme": 0.3927
+      },
+      "satellite_risk_score": 0.9645,
+      "high_influence_coverage": 0.0292,
+      "coverage_label": "isolated",
+      "regions": [
+        {
+          "name": "cloud_cluster_area_1",
+          "bbox": [
+            0.4141,
+            0.8555,
+            0.5684,
+            1.0
+          ],
+          "area_share": 0.0164,
+          "intensity": 0.6184,
+          "position": "southern part of the scene"
+        },
+        {
+          "name": "cloud_cluster_area_2",
+          "bbox": [
+            0.7734,
+            0.9199,
+            0.9297,
+            1.0
+          ],
+          "area_share": 0.0107,
+          "intensity": 0.7737,
+          "position": "southern-eastern quadrant"
+        }
+      ],
+      "notes": []
+    },
+    "historical_explanation": {
+      "reference_events": 90,
+      "closest_match": {
+        "event": "Mumbai 2007-06-30 (Heavy, 153 mm)",
+        "region": "Mumbai",
+        "date": "2007-06-30",
+        "observed_category": 1,
+        "observed_rainfall_mm": 152.5,
+        "similarity": 0.728,
+        "similarity_pct": 72.8
+      },
+      "matches": [
+        {
+          "event": "Mumbai 2007-06-30 (Heavy, 153 mm)",
+          "region": "Mumbai",
+          "date": "2007-06-30",
+          "observed_category": 1,
+          "observed_rainfall_mm": 152.5,
+          "similarity": 0.728,
+          "similarity_pct": 72.8
+        },
+        {
+          "event": "Mumbai 2006-08-06 (Heavy, 229 mm)",
+          "region": "Mumbai",
+          "date": "2006-08-06",
+          "observed_category": 1,
+          "observed_rainfall_mm": 228.8,
+          "similarity": 0.7095,
+          "similarity_pct": 70.9
+        },
+        {
+          "event": "Mumbai 2009-07-14 (Heavy, 161 mm)",
+          "region": "Mumbai",
+          "date": "2009-07-14",
+          "observed_category": 1,
+          "observed_rainfall_mm": 161.1,
+          "similarity": 0.6314,
+          "similarity_pct": 63.1
+        }
+      ],
+      "notes": []
+    },
+    "shap_detail": {
+      "method": "chain-rule TreeSHAP through the weather branch",
+      "base_value": 0.666611,
+      "predicted_risk": 0.796142,
+      "served_risk": 0.934316,
+      "branch_weights": {
+        "weather": 1.0,
+        "satellite": 0.0
+      },
+      "branch_contributions": {
+        "weather": 0.129531,
+        "satellite": 0.0
+      },
+      "top_features": [
+        {
+          "feature": "rain_sum_1d",
+          "label": "Rainfall, past 24h",
+          "value": 117.88,
+          "contribution": 0.126364,
+          "contribution_pct": 30.2,
+          "impact": "Critical",
+          "direction": "raises risk",
+          "branch": "weather",
+          "imputed": false
+        },
+        {
+          "feature": "rain_sum_30d",
+          "label": "Rainfall, past 30 days",
+          "value": 1191.44,
+          "contribution": -0.080751,
+          "contribution_pct": -19.3,
+          "impact": "High",
+          "direction": "lowers risk",
+          "branch": "weather",
+          "imputed": false
+        },
+        {
+          "feature": "longitude",
+          "label": "Longitude",
+          "value": 72.85,
+          "contribution": 0.059874,
+          "contribution_pct": 14.3,
+          "impact": "Medium",
+          "direction": "raises risk",
+          "branch": "weather",
+          "imputed": false
+        },
+        {
+          "feature": "rain_trend_3d",
+          "label": "Rainfall trend",
+          "value": 172.61,
+          "contribution": -0.031846,
+          "contribution_pct": -7.6,
+          "impact": "Medium",
+          "direction": "lowers risk",
+          "branch": "weather",
+          "imputed": false
+        },
+        {
+          "feature": "rain_sum_7d",
+          "label": "Rainfall, past 7 days",
+          "value": 485.56,
+          "contribution": 0.023303,
+          "contribution_pct": 5.6,
+          "impact": "Medium",
+          "direction": "raises risk",
+          "branch": "weather",
+          "imputed": false
+        },
+        {
+          "feature": "wind_speed_ms",
+          "label": "Wind speed",
+          "value": 6.96,
+          "contribution": 0.017582,
+          "contribution_pct": 4.2,
+          "impact": "Low",
+          "direction": "raises risk",
+          "branch": "weather",
+          "imputed": false
+        }
+      ],
+      "all_features": [
+        {
+          "feature": "temperature_c",
+          "label": "Temperature",
+          "value": 26.1,
+          "contribution": -0.015405,
+          "contribution_pct": -3.7,
+          "impact": "Low",
+          "direction": "lowers risk",
+          "branch": "weather",
+          "imputed": false
+        },
+        {
+          "feature": "humidity_pct",
+          "label": "Humidity",
+          "value": 94.5,
+          "contribution": 0.015784,
+          "contribution_pct": 3.8,
+          "impact": "Low",
+          "direction": "raises risk",
+          "branch": "weather",
+          "imputed": false
+        },
+        {
+          "feature": "pressure_hpa",
+          "label": "Atmospheric pressure",
+          "value": 992.5,
+          "contribution": -0.006043,
+          "contribution_pct": -1.4,
+          "impact": "Low",
+          "direction": "rising \u2014 lowers risk",
+          "branch": "weather",
+          "imputed": false
+        },
+        {
+          "feature": "wind_speed_ms",
+          "label": "Wind speed",
+          "value": 6.96,
+          "contribution": 0.017582,
+          "contribution_pct": 4.2,
+          "impact": "Low",
+          "direction": "raises risk",
+          "branch": "weather",
+          "imputed": false
+        },
+        {
+          "feature": "wind_direction_deg",
+          "label": "Wind direction",
+          "value": 261.2,
+          "contribution": 0.003487,
+          "contribution_pct": 0.8,
+          "impact": "Low",
+          "direction": "raises risk",
+          "branch": "weather",
+          "imputed": false
+        },
+        {
+          "feature": "cloud_cover_pct",
+          "label": "Cloud cover",
+          "value": 99.1,
+          "contribution": -0.00397,
+          "contribution_pct": -0.9,
+          "impact": "Low",
+          "direction": "lowers risk",
+          "branch": "weather",
+          "imputed": false
+        },
+        {
+          "feature": "latitude",
+          "label": "Latitude",
+          "value": 19.05,
+          "contribution": 0.01602,
+          "contribution_pct": 3.8,
+          "impact": "Low",
+          "direction": "raises risk",
+          "branch": "weather",
+          "imputed": false
+        },
+        {
+          "feature": "longitude",
+          "label": "Longitude",
+          "value": 72.85,
+          "contribution": 0.059874,
+          "contribution_pct": 14.3,
+          "impact": "Medium",
+          "direction": "raises risk",
+          "branch": "weather",
+          "imputed": false
+        },
+        {
+          "feature": "rain_sum_1d",
+          "label": "Rainfall, past 24h",
+          "value": 117.88,
+          "contribution": 0.126364,
+          "contribution_pct": 30.2,
+          "impact": "Critical",
+          "direction": "raises risk",
+          "branch": "weather",
+          "imputed": false
+        },
+        {
+          "feature": "rain_sum_3d",
+          "label": "Rainfall, past 3 days",
+          "value": 296.02,
+          "contribution": 0.007689,
+          "contribution_pct": 1.8,
+          "impact": "Low",
+          "direction": "raises risk",
+          "branch": "weather",
+          "imputed": false
+        },
+        {
+          "feature": "rain_sum_7d",
+          "label": "Rainfall, past 7 days",
+          "value": 485.56,
+          "contribution": 0.023303,
+          "contribution_pct": 5.6,
+          "impact": "Medium",
+          "direction": "raises risk",
+          "branch": "weather",
+          "imputed": false
+        },
+        {
+          "feature": "rain_sum_30d",
+          "label": "Rainfall, past 30 days",
+          "value": 1191.44,
+          "contribution": -0.080751,
+          "contribution_pct": -19.3,
+          "impact": "High",
+          "direction": "lowers risk",
+          "branch": "weather",
+          "imputed": false
+        },
+        {
+          "feature": "rain_trend_3d",
+          "label": "Rainfall trend",
+          "value": 172.61,
+          "contribution": -0.031846,
+          "contribution_pct": -7.6,
+          "impact": "Medium",
+          "direction": "lowers risk",
+          "branch": "weather",
+          "imputed": false
+        },
+        {
+          "feature": "season_sin",
+          "label": "Seasonal phase",
+          "value": -0.5431,
+          "contribution": -0.006658,
+          "contribution_pct": -1.6,
+          "impact": "Low",
+          "direction": "lowers risk",
+          "branch": "weather",
+          "imputed": false
+        },
+        {
+          "feature": "season_cos",
+          "label": "Seasonal phase",
+          "value": -0.8397,
+          "contribution": 0.004099,
+          "contribution_pct": 1.0,
+          "impact": "Low",
+          "direction": "raises risk",
+          "branch": "weather",
+          "imputed": false
+        }
+      ],
+      "unattributed_inputs": [
+        {
+          "inputs": "satellite scene features and satellite risk score",
+          "reason": "satellite branch weight is 0.00 in the selected fusion"
+        },
+        {
+          "inputs": "cloud_density, brightness_mean, spatial_dispersion, cold_top_fraction, cloud_growth_rate",
+          "reason": "the selected weighted fusion consumes only the two upstream probability vectors, so these columns cannot move its output"
+        }
+      ],
+      "notes": [
+        "Attribution follows the fusion chain rule: SHAP on the branch that reads each input, scaled by that branch's weight (weather 1.00, satellite 0.00).",
+        "Weather attributions are exact TreeSHAP values on the Phase 3 forest, so the baseline plus the attributions reconstruct the explained risk exactly.",
+        "The stored fusion output for this row is 0.9343 against the explained 0.7961. Dataset rows carry out-of-fold upstream probabilities, while this explanation runs the shipped Phase 3 artifact \u2014 the one that serves live predictions. The gap is the out-of-fold correction, not an explanation error.",
+        "The validation weight sweep gave the satellite branch weight 0.00, so it contributes exactly nothing to this decision. The Grad-CAM heatmap therefore explains the satellite model's own same-day reading, not the fused forecast."
+      ]
+    },
+    "caveats": [
+      "Attribution follows the fusion chain rule: SHAP on the branch that reads each input, scaled by that branch's weight (weather 1.00, satellite 0.00).",
+      "Weather attributions are exact TreeSHAP values on the Phase 3 forest, so the baseline plus the attributions reconstruct the explained risk exactly.",
+      "The stored fusion output for this row is 0.9343 against the explained 0.7961. Dataset rows carry out-of-fold upstream probabilities, while this explanation runs the shipped Phase 3 artifact \u2014 the one that serves live predictions. The gap is the out-of-fold correction, not an explanation error.",
+      "The validation weight sweep gave the satellite branch weight 0.00, so it contributes exactly nothing to this decision. The Grad-CAM heatmap therefore explains the satellite model's own same-day reading, not the fused forecast.",
+      "Location and calendar terms carry 22% of the attribution for this prediction. They are real model inputs and appear in the attribution table, but they are not voiced as causes because they describe where and when the region is, not what the weather is doing."
+    ],
+    "artifacts": {
+      "shap_bar": "/Users/sangeetasinha/Desktop/isrosih/VARUNA-AI/reports/shap/shap_bar.png",
+      "shap_waterfall": "/Users/sangeetasinha/Desktop/isrosih/VARUNA-AI/reports/shap/shap_waterfall.png",
+      "gradcam_overlay": "/Users/sangeetasinha/Desktop/isrosih/VARUNA-AI/reports/gradcam/gradcam_mumbai_2019-08-04.png"
+    },
+    "context": {
+      "region": "Mumbai",
+      "date": "2019-08-04",
+      "fusion_model": "weighted_fusion_w1.00",
+      "fusion_approach": "weighted"
+    },
+    "generated_at": "2026-08-08T06:17:39.735230+00:00"
+  }
+]

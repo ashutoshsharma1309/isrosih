@@ -1,0 +1,59 @@
+==============================================
+        VARUNA AI EXPLANATION REPORT
+==============================================
+Fusion model:         weighted_fusion_w1.00  (weighted)
+Explained cases:      3
+SHAP:                 exact TreeSHAP via the branch that reads each input
+Grad-CAM:             Captum LayerGradCam on the Phase 4 checkpoint
+==============================================
+
+--- Mumbai 2005-06-23 ---
+Prediction:   Heavy Rainfall  (99.7% probability, CRITICAL)
+Confidence:   High (84%)  [agreement 0.71, similarity 0.65, data Good]
+Top contributing factors:
+  1. Rainfall, past 24h       +0.1372  +33.5%  Critical
+  2. Rainfall, past 3 days    +0.0653  +15.9%  High
+  3. Rainfall, past 7 days    +0.0593  +14.5%  Medium
+  4. Longitude                +0.0535  +13.0%  Medium
+  5. Cloud cover              +0.0181   +4.4%  Low
+Satellite:    risk 0.57, substantial coverage, regions: cloud_cluster_area_1, cloud_cluster_area_2
+Explanation:
+  Conditions indicate a critical risk of high-impact rainfall (Heavy Rainfall, 99.7% probability). Risk was raised mainly by heavy rainfall in the past 24 hours, sustained rainfall over the past three days and a wet preceding week. The satellite model read this scene as 57% risk, but the fusion gives its branch zero weight, so it did not influence this forecast. These conditions most closely resemble Kerala 2019-08-07 (Heavy, 65 mm), at 65% similarity. Confidence is 84%, based on moderate agreement between the weather and satellite branches, 65% similarity to the closest past event and good input data quality.
+
+--- Mumbai 2017-07-17 ---
+Prediction:   Heavy Rainfall  (99.7% probability, CRITICAL)
+Confidence:   High (95%)  [agreement 0.99, similarity 0.79, data Good]
+Top contributing factors:
+  1. Rainfall, past 24h       +0.1261  +30.0%  Critical
+  2. Longitude                +0.0609  +14.5%  Medium
+  3. Rainfall, past 3 days    +0.0504  +12.0%  Medium
+  4. Rainfall, past 7 days    +0.0502  +12.0%  Medium
+  5. Humidity                 +0.0360   +8.6%  Medium
+Satellite:    risk 0.80, substantial coverage, regions: cloud_cluster_area_1, cloud_cluster_area_2
+Explanation:
+  Conditions indicate a critical risk of high-impact rainfall (Heavy Rainfall, 99.7% probability). Risk was raised mainly by heavy rainfall in the past 24 hours, sustained rainfall over the past three days and a wet preceding week. The satellite model read this scene as 80% risk, but the fusion gives its branch zero weight, so it did not influence this forecast. These conditions most closely resemble Mumbai 2017-07-18 (Heavy, 66 mm), at 79% similarity. Confidence is 95%, based on high agreement between the weather and satellite branches, 79% similarity to the closest past event and good input data quality.
+
+--- Mumbai 2019-08-04 ---
+Prediction:   Heavy Rainfall  (79.6% probability, CRITICAL)
+Confidence:   High (83%)  [agreement 0.97, similarity 0.73, data Good]
+Top contributing factors:
+  1. Rainfall, past 24h       +0.1264  +30.2%  Critical
+  2. Rainfall, past 30 days   -0.0808  -19.3%  High
+  3. Longitude                +0.0599  +14.3%  Medium
+  4. Rainfall trend           -0.0318   -7.6%  Medium
+  5. Rainfall, past 7 days    +0.0233   +5.6%  Medium
+Satellite:    risk 0.96, isolated coverage, regions: cloud_cluster_area_1, cloud_cluster_area_2
+Explanation:
+  Conditions indicate a critical risk of high-impact rainfall (Heavy Rainfall, 80% probability). Risk was raised mainly by heavy rainfall in the past 24 hours, a wet preceding week and strengthening winds, while a dry preceding month and an easing rainfall trend pulled it back. The satellite model read this scene as 96% risk, but the fusion gives its branch zero weight, so it did not influence this forecast. These conditions most closely resemble Mumbai 2007-06-30 (Heavy, 153 mm), at 73% similarity. Confidence is 83%, based on high agreement between the weather and satellite branches, 73% similarity to the closest past event and good input data quality.
+
+----------------------------------------------
+CAVEATS
+  - Attribution follows the fusion chain rule: SHAP on the branch that reads each input, scaled by that branch's weight (weather 1.00, satellite 0.00).
+  - Weather attributions are exact TreeSHAP values on the Phase 3 forest, so the baseline plus the attributions reconstruct the explained risk exactly.
+  - The stored fusion output for this row is 0.8561 against the explained 0.9966. Dataset rows carry out-of-fold upstream probabilities, while this explanation runs the shipped Phase 3 artifact — the one that serves live predictions. The gap is the out-of-fold correction, not an explanation error.
+  - The validation weight sweep gave the satellite branch weight 0.00, so it contributes exactly nothing to this decision. The Grad-CAM heatmap therefore explains the satellite model's own same-day reading, not the fused forecast.
+  - Location and calendar terms carry 22% of the attribution for this prediction. They are real model inputs and appear in the attribution table, but they are not voiced as causes because they describe where and when the region is, not what the weather is doing.
+  - The stored fusion output for this row is 0.8101 against the explained 0.9973. Dataset rows carry out-of-fold upstream probabilities, while this explanation runs the shipped Phase 3 artifact — the one that serves live predictions. The gap is the out-of-fold correction, not an explanation error.
+  - Location and calendar terms carry 25% of the attribution for this prediction. They are real model inputs and appear in the attribution table, but they are not voiced as causes because they describe where and when the region is, not what the weather is doing.
+  - The stored fusion output for this row is 0.9343 against the explained 0.7961. Dataset rows carry out-of-fold upstream probabilities, while this explanation runs the shipped Phase 3 artifact — the one that serves live predictions. The gap is the out-of-fold correction, not an explanation error.
+==============================================
