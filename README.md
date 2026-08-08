@@ -123,9 +123,10 @@ npm run dev                     # http://localhost:5173
 
 ## Project phases
 
-Phases 1–5 are complete: architecture, data pipeline, baseline tabular
-model, satellite vision model, and the hybrid fusion engine. Phase 6
-(explainability) is next. The full ten-phase plan is in
+Phases 1–6 are complete: architecture, data pipeline, baseline tabular
+model, satellite vision model, the hybrid fusion engine, and the
+explainability layer. Phase 7 (backend API integration) is next. The full
+ten-phase plan is in
 [docs/development_roadmap.md](docs/development_roadmap.md).
 
 | Phase | Deliverable | Trained artifact |
@@ -133,6 +134,7 @@ model, satellite vision model, and the hybrid fusion engine. Phase 6
 | 3 | Tabular model — next-day category from weather | `rainfall_model_v1.pkl` (test macro-F1 0.634) |
 | 4 | Satellite CNN — same-day category from a MODIS scene | `satellite_model_v1.pt` (test macro-F1 0.860) |
 | 5 | Hybrid fusion — next-day risk from both branches | `varuna_fusion_model_v1.pkl` (see report) |
+| 6 | Explainability — SHAP, Grad-CAM, narrative | no artifact; explains 3–5 on demand |
 
 Model artifacts are git-ignored; regenerate them with
 `python -m ai_models.<package>.train`, or distribute via releases/DVC.

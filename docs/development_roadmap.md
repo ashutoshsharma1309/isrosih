@@ -7,8 +7,8 @@
 | 3 | Baseline tabular rainfall model | ✅ Done |
 | 4 | Satellite image intelligence model | ✅ Done |
 | 5 | Hybrid prediction system | ✅ Done |
-| 6 | Explainable AI layer | Next |
-| 7 | Backend API integration | Pending |
+| 6 | Explainable AI layer | ✅ Done |
+| 7 | Backend API integration | Next |
 | 8 | Frontend dashboard build-out | Pending |
 | 9 | Integration & testing | Pending |
 | 10 | Deployment & SIH presentation | Pending |
@@ -109,10 +109,38 @@ cost-weighted selection metric (the current macro-F1 winner trades away
 event recall, the wrong trade for early warning); `PredictionService`
 wiring so the 501s disappear (Phase 7).
 
-## Phase 6 — Explainability
+## Phase 6 — Explainability (complete)
 
-- SHAP explainer for tabular features; Grad-CAM renderer for imagery;
-  narrative generator; payloads conform to the `Explanation` schema.
+Implemented in `explainability/` (see docs/explainable_ai_architecture.md
+and docs/ai_explanation_examples.md): SHAP attribution over the fusion
+pipeline, Captum Grad-CAM over the Phase 4 CNN, natural-language narrative
+generation, confidence decomposition, historical analogues, and 31 tests.
+
+The design decision that shaped the phase: **the Phase 5 engine is a
+pipeline, not a single estimator.** The shipped `WeightedFusion` (w=1.00)
+reads only the two upstream probability vectors — perturbing humidity or
+cloud density changes its output by exactly 0.000000. Running SHAP against
+it would return zero for every meteorological feature, so attribution
+follows the chain rule instead: SHAP on the branch that reads each input,
+scaled by that branch's exact fusion weight. Attributions are verified to
+reconstruct the prediction (`base + Σ contributions == predicted_risk`).
+
+Two corrections came out of building it:
+
+- **Region coordinates were being median-filled.** The Phase 3 forest
+  reads latitude/longitude, which the region-day aggregation drops. Filling
+  from the global median put ~20% of attribution on a location belonging to
+  no region and shifted one case from 68.9% to 99.7%. The explainer now
+  resolves each region's real centroid.
+- **Location and calendar terms absorb 22–25% of attribution.** Real, and
+  now disclosed — they stay in the attribution table but are not voiced as
+  causes, because "elevated longitude" is not something an operator can act
+  on.
+
+Carried forward: the satellite branch has zero fusion weight in v1, so
+Grad-CAM currently explains the Phase 4 model's own reading rather than the
+fused decision. It becomes decision-relevant with no code change the moment
+a fusion with w < 1 is selected.
 
 ## Phase 7 — Backend integration
 
