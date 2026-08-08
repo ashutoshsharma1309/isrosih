@@ -1,0 +1,44 @@
+# VARUNA AI — local/dev orchestration.
+# Usage (from repo root):  docker compose -f deployment/docker-compose.yml up --build
+services:
+  db:
+    image: postgis/postgis:16-3.4
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-varuna}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-varuna}
+      POSTGRES_DB: ${POSTGRES_DB:-varuna_ai}
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      # Applies the initial schema on first start only.
+      - ../database/schema.sql:/docker-entrypoint-initdb.d/01_schema.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-varuna} -d ${POSTGRES_DB:-varuna_ai}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build: ../backend
+    environment:
+      ENVIRONMENT: development
+      POSTGRES_HOST: db
+      POSTGRES_USER: ${POSTGRES_USER:-varuna}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-varuna}
+      POSTGRES_DB: ${POSTGRES_DB:-varuna_ai}
+    ports:
+      - "8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+
+  frontend:
+    build: ../frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+
+volumes:
+  pgdata:
