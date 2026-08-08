@@ -25,11 +25,18 @@ netcdf4>=1.7
 # HTTP client for external data sources (MOSDAC, NASA Earthdata)
 httpx>=0.27
 
-# Machine learning (baseline models, Phase 3)
+# Machine learning (baseline models, Phase 3; fusion, Phase 5)
 scikit-learn>=1.5
 xgboost>=2.1
 matplotlib>=3.9
 joblib>=1.4
+
+# Deep learning (satellite vision model, Phase 4; neural fusion, Phase 5)
+# NOTE: torch and xgboost each vendor libomp. The fusion pipeline drives
+# both in one process and pins OMP_NUM_THREADS=1 to stop them colliding —
+# see ai_models/fusion_model/__init__.py and docs/hybrid_ai_architecture.md.
+torch>=2.4
+torchvision>=0.19
 
 # Testing
 pytest>=8.3
